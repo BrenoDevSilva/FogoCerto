@@ -15,7 +15,7 @@
 # MAGIC | vento maximo >= 30 km/h / >= 20 km/h | 2 / 1 |
 # MAGIC | menos de 1 mm de chuva nos ultimos 3 dias | 1 |
 # MAGIC | temperatura maxima >= 35 C | 1 |
-# MAGIC | focos no municipio **no dia anterior** >= 20 / >= 1 | 2 / 1 |
+# MAGIC | focos no municipio **no dia anterior** >= 100 / >= 20 / >= 1 | 3 / 2 / 1 |
 # MAGIC
 # MAGIC Nivel: 0 a 2 = baixo, 3 a 4 = medio, 5 ou mais = alto.
 # MAGIC O risco usa os focos de ONTEM, nunca os de hoje: assim da para testar se ele "acerta" os focos de hoje (backtest).
@@ -70,7 +70,7 @@ pontos AS (
     CASE WHEN vento_max >= 30 THEN 2 WHEN vento_max >= 20 THEN 1 ELSE 0 END AS p_vento,
     CASE WHEN chuva_3d < 1 THEN 1 ELSE 0 END AS p_chuva,
     CASE WHEN temp_max >= 35 THEN 1 ELSE 0 END AS p_calor,
-    CASE WHEN focos_ontem >= 20 THEN 2 WHEN focos_ontem >= 1 THEN 1 ELSE 0 END AS p_focos
+    CASE WHEN focos_ontem >= 100 THEN 3 WHEN focos_ontem >= 20 THEN 2 WHEN focos_ontem >= 1 THEN 1 ELSE 0 END AS p_focos
   FROM janela
 )
 SELECT id_ibge, data,

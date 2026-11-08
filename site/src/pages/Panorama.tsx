@@ -2,17 +2,19 @@ import type { NivelRisco, RiscoMunicipio } from '../data/risco'
 import { SeloNivel } from '../components/SeloNivel'
 import { IconeAlerta, IconeChama, IconeSeta } from '../components/Icones'
 import { AvisoLegal } from '../components/AvisoLegal'
+import { AvisoOffline } from '../components/AvisoOffline'
 import { PONTOS_MAX, fmtData, fmtNumero, hojeISO } from '../lib/formato'
 
 interface Props {
   lista: RiscoMunicipio[]
+  offline: boolean
   onAbrir: (id: number) => void
 }
 
 const ORDEM: NivelRisco[] = ['alto', 'medio', 'baixo']
 const PLURAL: Record<NivelRisco, string> = { alto: 'em risco alto', medio: 'em risco médio', baixo: 'em risco baixo' }
 
-export function Panorama({ lista, onAbrir }: Props) {
+export function Panorama({ lista, offline, onAbrir }: Props) {
   const contagem = ORDEM.map((n) => ({ nivel: n, total: lista.filter((m) => m.nivel_risco === n).length }))
   const datas = [...new Set(lista.map((m) => m.data))]
   const dataRef = datas.length === 1 ? datas[0] : null
@@ -27,6 +29,8 @@ export function Panorama({ lista, onAbrir }: Props) {
         Os {lista.length} municípios do Pará acompanhados, do maior para o menor risco
         {dataRef ? <> em {fmtData(dataRef)}</> : null}.
       </p>
+
+      {offline && <AvisoOffline />}
 
       {desatualizado && dataRef && (
         <p className="aviso-data" role="status">

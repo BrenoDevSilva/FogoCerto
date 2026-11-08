@@ -59,13 +59,25 @@ function validar(item: unknown): RiscoMunicipio | null {
   }
 }
 
-/** Lista de municípios, do maior para o menor risco. Lança erro se não carregar. */
-export async function getRiscoAtual(): Promise<RiscoMunicipio[]> {
+export interface RiscoAtual {
+  /** Municípios, do maior para o menor risco. */
+  lista: RiscoMunicipio[]
+  /** true quando não havia internet e o dado veio da última cópia salva no aparelho. */
+  offline: boolean
+}
+
+/** Cabeçalho que o service worker (public/sw.js) põe na resposta servida do cache. */
+const CABECALHO_OFFLINE = 'x-fogocerto-offline'
+
+/** Lê o risco atual. Lança erro se não carregar (nem da rede, nem do cache). */
+export async function getRiscoAtual(): Promise<RiscoAtual> {
   const resposta = await fetch(URL_RISCO, { cache: 'no-cache' })
   if (!resposta.ok) throw new Error(`HTTP ${resposta.status}`)
+  const offline = resposta.headers.get(CABECALHO_OFFLINE) === '1'
   const bruto: unknown = await resposta.json()
   if (!Array.isArray(bruto)) throw new Error('Formato inesperado')
   const lista = bruto.map(validar).filter((m): m is RiscoMunicipio => m !== null)
   if (lista.length === 0) throw new Error('Arquivo sem municípios')
-  return lista.sort((a, b) => b.pontos - a.pontos || b.focos_ontem - a.focos_ontem)
+  lista.sort((a, b) => b.pontos - a.pontos || b.focos_ontem - a.focos_ontem)
+  return { lista, offline }
 }

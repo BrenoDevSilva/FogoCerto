@@ -1,6 +1,7 @@
 import { useId, type ReactNode } from 'react'
 import type { NivelRisco, RiscoMunicipio } from '../data/risco'
 import { AvisoLegal } from '../components/AvisoLegal'
+import { AvisoOffline } from '../components/AvisoOffline'
 import { Medidor } from '../components/Medidor'
 import { BarrasNivel } from '../components/SeloNivel'
 import {
@@ -45,11 +46,12 @@ const ORIENTACAO: Record<NivelRisco, { titulo: string; texto: ReactNode }> = {
 
 interface Props {
   lista: RiscoMunicipio[]
+  offline: boolean
   selecionadoId: number
   onSelecionar: (id: number) => void
 }
 
-export function Inicio({ lista, selecionadoId, onSelecionar }: Props) {
+export function Inicio({ lista, offline, selecionadoId, onSelecionar }: Props) {
   const idSelect = useId()
   const m = lista.find((x) => x.id_ibge === selecionadoId) ?? lista[0]
   const fatores = fatoresEmLista(m.fatores)
@@ -77,6 +79,8 @@ export function Inicio({ lista, selecionadoId, onSelecionar }: Props) {
           </select>
         </div>
       </div>
+
+      {offline && <AvisoOffline />}
 
       {desatualizado && (
         <p className="aviso-data" role="status">

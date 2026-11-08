@@ -97,6 +97,11 @@ export const IconeSeta = (p: P) => (
     <path d="M9 6l6 6-6 6" />
   </svg>
 )
+export const IconeSemSinal = (p: P) => (
+  <svg {...base(p)}>
+    <path d="M2 8.8a15 15 0 0 1 4.2-2.7M22 8.8a15 15 0 0 0-8-3.6M5 12.9a10 10 0 0 1 3.3-2M19 12.9a10 10 0 0 0-3-1.9M8.5 16.4a5 5 0 0 1 2-.9M15.5 16.4a5 5 0 0 0-.3-.2M12 20h.01M3 3l18 18" />
+  </svg>
+)
 export const IconeRecarregar = (p: P) => (
   <svg {...base(p)}>
     <path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v5h-5" />

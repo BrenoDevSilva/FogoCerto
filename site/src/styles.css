@@ -351,6 +351,14 @@ a {
   margin-top: 1px;
 }
 
+.aviso-offline {
+  background: #e8eef7;
+  border-color: #3b5b8c;
+}
+.aviso-offline .aviso-data__icone {
+  color: #274471;
+}
+
 .aviso-legal {
   display: flex;
   gap: 12px;

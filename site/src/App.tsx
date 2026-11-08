@@ -65,7 +65,7 @@ function salvarMunicipio(id: number) {
 type Estado =
   | { tipo: 'carregando' }
   | { tipo: 'erro' }
-  | { tipo: 'ok'; lista: RiscoMunicipio[] }
+  | { tipo: 'ok'; lista: RiscoMunicipio[]; offline: boolean }
 
 export default function App() {
   const [rota, setRota] = useState<Rota>(lerRota)
@@ -76,7 +76,7 @@ export default function App() {
   const carregar = useCallback(() => {
     setEstado({ tipo: 'carregando' })
     getRiscoAtual()
-      .then((lista) => setEstado({ tipo: 'ok', lista }))
+      .then(({ lista, offline }) => setEstado({ tipo: 'ok', lista, offline }))
       .catch(() => setEstado({ tipo: 'erro' }))
   }, [])
 
@@ -181,10 +181,15 @@ export default function App() {
       </div>
     )
   } else if (rota === 'panorama') {
-    conteudo = <Panorama lista={estado.lista} onAbrir={abrirMunicipio} />
+    conteudo = <Panorama lista={estado.lista} offline={estado.offline} onAbrir={abrirMunicipio} />
   } else {
     conteudo = (
-      <Inicio lista={estado.lista} selecionadoId={selecionado ?? estado.lista[0].id_ibge} onSelecionar={escolher} />
+      <Inicio
+        lista={estado.lista}
+        offline={estado.offline}
+        selecionadoId={selecionado ?? estado.lista[0].id_ibge}
+        onSelecionar={escolher}
+      />
     )
   }
 

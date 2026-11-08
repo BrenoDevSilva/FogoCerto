@@ -1,11 +1,11 @@
 import { useId, type ReactNode } from 'react'
 import type { NivelRisco, RiscoMunicipio } from '../data/risco'
 import { AvisoLegal } from '../components/AvisoLegal'
+import { AvisoData } from '../components/AvisoData'
 import { AvisoOffline } from '../components/AvisoOffline'
 import { Medidor } from '../components/Medidor'
 import { BarrasNivel } from '../components/SeloNivel'
 import {
-  IconeAlerta,
   IconeChama,
   IconeChuva,
   IconeGota,
@@ -14,12 +14,12 @@ import {
   IconeTermometro,
   IconeVento,
 } from '../components/Icones'
-import { NIVEL, PONTOS_MAX, fatoresEmLista, fmtData, fmtDataHora, fmtNumero, hojeISO } from '../lib/formato'
+import { NIVEL, PONTOS_MAX, fatoresEmLista, fmtData, fmtDataHora, fmtNumero } from '../lib/formato'
 import { diaAnterior } from '../lib/datas'
 
 const ORIENTACAO: Record<NivelRisco, { titulo: string; texto: ReactNode }> = {
   alto: {
-    titulo: 'Não faça queima hoje.',
+    titulo: 'Não faça queima.',
     texto: (
       <>
         O tempo e os focos por perto favorecem o fogo. Se vir fogo ou fumaça, procure a defesa civil:{' '}
@@ -40,7 +40,7 @@ const ORIENTACAO: Record<NivelRisco, { titulo: string; texto: ReactNode }> = {
   baixo: {
     titulo: 'Risco baixo, mas fique atento.',
     texto:
-      'O tempo hoje ajuda pouco o fogo. Mesmo assim, queimar exige autorização do órgão ambiental, e o tempo pode mudar.',
+      'As condições do último dia ajudam pouco o fogo. Mesmo assim, queimar exige autorização do órgão ambiental, e o tempo pode mudar.',
   },
 }
 
@@ -55,14 +55,13 @@ export function Inicio({ lista, offline, selecionadoId, onSelecionar }: Props) {
   const idSelect = useId()
   const m = lista.find((x) => x.id_ibge === selecionadoId) ?? lista[0]
   const fatores = fatoresEmLista(m.fatores)
-  const desatualizado = m.data !== hojeISO()
   const orientacao = ORIENTACAO[m.nivel_risco]
   const ordemAlfabetica = [...lista].sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR'))
 
   return (
     <>
       <h1 className="titulo-pagina" tabIndex={-1}>
-        Risco de fogo <span className="titulo-pagina__destaque">hoje</span>
+        Risco de fogo <span className="titulo-pagina__destaque">mais recente</span>
       </h1>
 
       <div className="escolha">
@@ -82,15 +81,7 @@ export function Inicio({ lista, offline, selecionadoId, onSelecionar }: Props) {
 
       {offline && <AvisoOffline />}
 
-      {desatualizado && (
-        <p className="aviso-data" role="status">
-          <IconeAlerta className="aviso-data__icone" />
-          <span>
-            <strong>Dados de {fmtData(m.data, false)}.</strong> O cálculo de hoje ainda não chegou. Abaixo está o
-            último risco disponível.
-          </span>
-        </p>
-      )}
+      <AvisoData data={m.data} />
 
       <article className={`cartao cartao--${m.nivel_risco}`} aria-labelledby="cartao-nivel">
         <header className="cartao__topo">

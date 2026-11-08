@@ -351,6 +351,20 @@ a {
   margin-top: 1px;
 }
 
+.info-data {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  font-size: 0.9375rem;
+  color: var(--tinta-2);
+}
+.info-data__icone {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+}
+
 .aviso-offline {
   background: #e8eef7;
   border-color: #3b5b8c;

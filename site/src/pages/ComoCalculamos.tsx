@@ -108,9 +108,24 @@ export function ComoCalculamos() {
         </p>
       </section>
 
+      <section className="bloco" aria-labelledby="t-dia">
+        <h2 id="t-dia">
+          <span className="bloco__num">3</span> De que dia é o risco
+        </h2>
+        <p>
+          O risco usa o clima e os focos de calor do <strong>último dia fechado</strong>, ou seja, ontem. Os dados são
+          coletados e calculados <strong>uma vez por dia, pela manhã</strong>. Por isso, o cartão sempre mostra a data a
+          que o risco se refere, e ele não é uma medida em tempo real.
+        </p>
+        <p>
+          Se a atualização do dia atrasar, o site avisa com a data do último cálculo disponível. Se ela vier com algum
+          problema, preferimos não mostrar nada a mostrar um dado errado.
+        </p>
+      </section>
+
       <section className="bloco" aria-labelledby="t-fontes">
         <h2 id="t-fontes">
-          <span className="bloco__num">3</span> De onde vêm os dados
+          <span className="bloco__num">4</span> De onde vêm os dados
         </h2>
         <ul className="fontes">
           <li>

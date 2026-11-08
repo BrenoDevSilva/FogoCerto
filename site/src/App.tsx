@@ -207,7 +207,7 @@ export default function App() {
               Fogo<b>Certo</b>
             </span>
           </a>
-          <p className="topo__lema">Risco de fogo diário · Pará</p>
+          <p className="topo__lema">Risco de fogo diário</p>
         </div>
         <nav className="menu" aria-label="Principal">
           <ul>

@@ -333,6 +333,30 @@ a {
   cursor: pointer;
 }
 
+.escolha__dica {
+  font-size: 0.9375rem;
+  color: var(--tinta-2);
+  max-width: 60ch;
+}
+
+.filtro-uf {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  font-weight: 700;
+  font-size: 1rem;
+}
+.filtro-uf select {
+  min-height: 44px;
+  padding: 6px 12px;
+  font: 700 1rem var(--f-texto);
+  color: var(--tinta);
+  background: var(--cartao);
+  border: 2px solid var(--tinta);
+  border-radius: 10px;
+}
+
 /* ---------- Avisos ---------- */
 
 .aviso-data {
@@ -726,6 +750,11 @@ a {
   font-weight: 700;
   font-size: 1.125rem;
   line-height: 1.2;
+}
+.ranking__uf {
+  font-weight: 400;
+  color: var(--tinta-2);
+  font-size: 0.9375rem;
 }
 .ranking__info {
   display: flex;

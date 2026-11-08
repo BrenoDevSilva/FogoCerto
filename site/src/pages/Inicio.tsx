@@ -15,6 +15,7 @@ import {
 } from '../components/Icones'
 import { NIVEL, PONTOS_MAX, fatoresEmLista, fmtData, fmtDataHora, fmtNumero, hojeISO } from '../lib/formato'
 import { diaAnterior } from '../lib/datas'
+import { listarEstados, nomeUF, ufsDaLista } from '../lib/estados'
 
 const ORIENTACAO: Record<NivelRisco, { titulo: string; texto: ReactNode }> = {
   alto: {
@@ -56,6 +57,12 @@ export function Inicio({ lista, selecionadoId, onSelecionar }: Props) {
   const desatualizado = m.data !== hojeISO()
   const orientacao = ORIENTACAO[m.nivel_risco]
   const ordemAlfabetica = [...lista].sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR'))
+  const ufs = ufsDaLista(lista)
+  const opcao = (x: RiscoMunicipio) => (
+    <option key={x.id_ibge} value={x.id_ibge}>
+      {x.nome} ({x.uf})
+    </option>
+  )
 
   return (
     <>
@@ -68,14 +75,25 @@ export function Inicio({ lista, selecionadoId, onSelecionar }: Props) {
           Seu município
         </label>
         <div className="escolha__campo">
-          <select id={idSelect} value={m.id_ibge} onChange={(e) => onSelecionar(Number(e.target.value))}>
-            {ordemAlfabetica.map((x) => (
-              <option key={x.id_ibge} value={x.id_ibge}>
-                {x.nome} ({x.uf})
-              </option>
-            ))}
+          <select
+            id={idSelect}
+            value={m.id_ibge}
+            onChange={(e) => onSelecionar(Number(e.target.value))}
+            aria-describedby={`${idSelect}-cobertura`}
+          >
+            {ufs.length > 1
+              ? ufs.map((uf) => (
+                  <optgroup key={uf} label={nomeUF(uf)}>
+                    {ordemAlfabetica.filter((x) => x.uf === uf).map(opcao)}
+                  </optgroup>
+                ))
+              : ordemAlfabetica.map(opcao)}
           </select>
         </div>
+        <p id={`${idSelect}-cobertura`} className="escolha__dica">
+          Cobertura atual: {lista.length} municípios ({listarEstados(ufs)}). Não achou o seu? Ele ainda não entrou na
+          lista, que vai crescer para todo o Brasil.
+        </p>
       </div>
 
       {desatualizado && (
@@ -146,7 +164,7 @@ export function Inicio({ lista, selecionadoId, onSelecionar }: Props) {
         </p>
       </article>
 
-      <AvisoLegal />
+      <AvisoLegal uf={m.uf} />
     </>
   )
 }

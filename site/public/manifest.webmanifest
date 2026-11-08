@@ -1,7 +1,7 @@
 {
-  "name": "FogoCerto · Risco de fogo hoje",
+  "name": "FogoCerto · Risco de fogo mais recente",
   "short_name": "FogoCerto",
-  "description": "Risco de fogo de hoje no seu município, com os motivos explicados.",
+  "description": "Risco de fogo mais recente no seu município, com os motivos explicados.",
   "lang": "pt-BR",
   "start_url": "./",
   "scope": "./",

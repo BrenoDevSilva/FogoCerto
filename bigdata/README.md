@@ -71,7 +71,7 @@ Acesse http://localhost:8080 (usuário `admin`, senha do comando acima), ative a
 
 ## Regra de risco (Ouro)
 
-Pontos por município e dia: umidade mínima < 30% (2) ou < 40% (1); vento ≥ 30 km/h (2) ou ≥ 20 km/h (1); menos de 1 mm de chuva em 3 dias (1); máxima ≥ 35 °C (1); focos no dia anterior ≥ 20 (2) ou ≥ 1 (1). Nível: 0 a 2 baixo, 3 a 4 médio, 5+ alto. O risco usa os focos de ontem, nunca os do próprio dia, para permitir o backtest.
+Pontos por município e dia: umidade mínima < 30% (2) ou < 40% (1); vento ≥ 30 km/h (2) ou ≥ 20 km/h (1); menos de 1 mm de chuva em 3 dias (1); máxima ≥ 35 °C (1); focos no dia anterior ≥ 100 (3), ≥ 20 (2) ou ≥ 1 (1). Nível: 0 a 2 baixo, 3 a 4 médio, 5+ alto. O risco usa os focos de ontem, nunca os do próprio dia, para permitir o backtest.
 
 ## LGPD
 

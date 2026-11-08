@@ -192,3 +192,24 @@ WHERE focos_ontem IS NOT NULL
 GROUP BY nivel_risco
 ORDER BY CASE nivel_risco WHEN 'alto' THEN 1 WHEN 'medio' THEN 2 ELSE 3 END
 """))
+
+# COMMAND ----------
+
+# Consulta 5b (complemento do backtest) - SO O CLIMA, sem os pontos de "focos ontem".
+# O risco inclui focos de ontem, e fogo costuma continuar no dia seguinte; isso favorece o backtest.
+# Aqui tiramos esse componente para ver se umidade, vento, calor e chuva sozinhos tambem separam os dias.
+display(spark.sql(f"""
+SELECT CASE WHEN pontos_clima >= 4 THEN '3) clima alto (4+ pontos)'
+            WHEN pontos_clima >= 2 THEN '2) clima medio (2 a 3 pontos)'
+            ELSE '1) clima baixo (0 a 1 ponto)' END AS faixa_clima,
+       COUNT(*) AS dias_municipio,
+       ROUND(AVG(n_focos), 1) AS focos_medios_no_dia,
+       ROUND(100 * AVG(CASE WHEN n_focos > 0 THEN 1 ELSE 0 END), 0) AS pct_dias_com_fogo
+FROM (
+  SELECT *, pontos - CASE WHEN focos_ontem >= 100 THEN 3 WHEN focos_ontem >= 20 THEN 2
+                          WHEN focos_ontem >= 1 THEN 1 ELSE 0 END AS pontos_clima
+  FROM {P}.fato_risco_municipio_dia
+  WHERE focos_ontem IS NOT NULL
+)
+GROUP BY 1 ORDER BY 1
+"""))

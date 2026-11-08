@@ -126,7 +126,7 @@ export default function App() {
         previa={
           <div className="previa-chat">
             <span className="previa-chat__balao previa-chat__balao--eu">Preciso de autorização para queimar o pasto?</span>
-            <span className="previa-chat__balao">Sim. A Lei 14.944/2024 diz que…</span>
+            <span className="previa-chat__balao">A resposta vai aparecer aqui, com a fonte da lei.</span>
             <span className="previa-chat__campo">Escreva sua pergunta</span>
           </div>
         }
@@ -153,12 +153,15 @@ export default function App() {
     )
   } else if (estado.tipo === 'carregando') {
     conteudo = (
-      <div className="estado" role="status" aria-live="polite">
-        <span className="estado__chama" aria-hidden="true">
-          <IconeChama width={40} height={40} />
-        </span>
-        <p>Carregando o risco de hoje…</p>
-      </div>
+      <>
+        <div className="estado" role="status" aria-live="polite">
+          <span className="estado__chama" aria-hidden="true">
+            <IconeChama width={40} height={40} />
+          </span>
+          <p>Carregando o risco de hoje…</p>
+        </div>
+        <AvisoLegal compacto />
+      </>
     )
   } else if (estado.tipo === 'erro') {
     conteudo = (
@@ -174,6 +177,7 @@ export default function App() {
           Em caso de fogo, não espere: ligue para a Defesa Civil (<a href="tel:199">199</a>) ou os Bombeiros (
           <a href="tel:193">193</a>).
         </p>
+        <AvisoLegal compacto />
       </div>
     )
   } else if (rota === 'panorama') {
@@ -224,8 +228,8 @@ export default function App() {
         {conteudo}
       </main>
 
+      {/* O aviso legal fica dentro de cada tela (inclusive a de erro), para não aparecer repetido. */}
       <footer className="rodape">
-        <AvisoLegal compacto />
         <p>
           FogoCerto · Global Solution FIAP 2026 · dados abertos do INPE e do Open-Meteo.{' '}
           <a href={hrefDe('como-calculamos')}>Como calculamos</a>

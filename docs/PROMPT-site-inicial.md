@@ -11,17 +11,20 @@ Site do FogoCerto: mostra, a cada manhã, o risco de fogo de hoje em 15 municíp
 - `npm run build` precisa gerar um site estático (o time de DevOps vai empacotar em Docker depois).
 
 ## Dados
-Nesta primeira versão, o site lê um arquivo `site/public/data/risco_atual.json` com o mesmo formato da visão `vw_risco_atual` da camada Ouro:
+O arquivo **oficial já existe**: `site/public/data/risco_atual.json`. Ele foi gerado pelo Databricks (camada Ouro, visão `vw_risco_atual`). Use ele, **não crie dado de exemplo** e não o edite à mão: o time de Big Data o atualiza por pull request.
+
+Formato (lista com 1 item por município, 15 municípios do Pará, do maior para o menor risco):
 
 ```json
-[{"id_ibge":1505809,"nome":"Portel","uf":"PA","data":"2026-11-06","nivel_risco":"alto","pontos":5,
-  "fatores":"umidade minima de 28%; sem chuva nos ultimos 3 dias; 15 focos ontem no municipio",
-  "focos_ontem":15,"umidade_min":28,"vento_max":21.0,"temp_max":36.2,"chuva_3d":0.0,
-  "atualizado_em":"2026-11-07T10:35:00"}]
+{"id_ibge":1504802,"nome":"Monte Alegre","uf":"PA","data":"2026-11-03","nivel_risco":"alto","pontos":7,
+ "fatores":"umidade minima de 39%; vento de ate 22 km/h; sem chuva nos ultimos 3 dias; calor de 36 C; 349 focos ontem no municipio",
+ "focos_ontem":349,"umidade_min":39.0,"vento_max":22.0,"temp_max":35.8,"chuva_3d":0.4,
+ "atualizado_em":"2026-11-08T02:14:21.403011"}
 ```
 
-Crie um JSON de exemplo com os 15 municípios de `bigdata/config/municipios.json` (valores plausíveis, misturando alto, médio e baixo) e marque no README do site que é dado de exemplo até ligarmos a API.
-Isole a leitura num único módulo (`src/data/risco.ts`, função `getRiscoAtual()`), para depois trocar o JSON pela API `GET /risco?municipio_id=` sem mexer nas telas.
+Campos: `nivel_risco` é `baixo`, `medio` ou `alto`; `fatores` são os motivos em texto separados por `;` (mostre como lista); `data` é o dia a que o risco se refere (mostre sempre, o dado pode não ser de hoje); `atualizado_em` é quando foi gerado.
+
+Isole a leitura num único módulo (`src/data/risco.ts`, função `getRiscoAtual()`), usando `fetch` do arquivo em `/data/risco_atual.json`. Assim, depois, dá para trocar pela API `GET /risco?municipio_id=` sem mexer nas telas.
 
 ## Telas
 1. **Início:** escolher o município (lista ou busca) e ver um cartão grande com o nível (baixo, médio ou alto, com cor **e** texto/ícone, não só cor), os motivos em lista simples, focos de ontem, umidade, vento, chuva e a hora da atualização.
@@ -32,7 +35,7 @@ Isole a leitura num único módulo (`src/data/risco.ts`, função `getRiscoAtual
 ## Regras do produto (obrigatórias)
 - O site **nunca autoriza queima**. Sempre mostrar: "O FogoCerto informa o risco. A autorização de queima é do órgão ambiental do seu estado." Em risco alto, recomendar não queimar e procurar a defesa civil.
 - Acessível: contraste bom, funciona com teclado, textos alternativos, fonte legível, funciona bem no celular.
-- Se o dado não carregar, mostrar a última informação disponível ou uma mensagem clara, nunca tela em branco.
+- Se o dado não carregar, mostrar uma mensagem clara, nunca tela em branco. Se a `data` do arquivo não for de hoje, avisar "dados de DD/MM".
 - Nada de chave, senha ou dado pessoal no código.
 
 ## Git

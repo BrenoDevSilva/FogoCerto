@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react'
-import { getRiscoAtual, type RiscoMunicipio } from './data/risco'
+import { ErroDado, getRiscoAtual, type RiscoMunicipio } from './data/risco'
 import { Inicio } from './pages/Inicio'
 import { Panorama } from './pages/Panorama'
 import { ComoCalculamos } from './pages/ComoCalculamos'
@@ -26,7 +26,7 @@ const MENU: { rota: Rota; rotulo: string; curto: string; icone: ReactNode }[] = 
 ]
 
 const TITULOS: Record<Rota, string> = {
-  inicio: 'Risco de fogo hoje',
+  inicio: 'Risco de fogo mais recente',
   panorama: 'Panorama',
   'como-calculamos': 'Como calculamos',
   assistente: 'Pergunte ao assistente',
@@ -64,7 +64,7 @@ function salvarMunicipio(id: number) {
 
 type Estado =
   | { tipo: 'carregando' }
-  | { tipo: 'erro' }
+  | { tipo: 'erro'; dadoInvalido: boolean }
   | { tipo: 'ok'; lista: RiscoMunicipio[]; offline: boolean }
 
 export default function App() {
@@ -77,7 +77,7 @@ export default function App() {
     setEstado({ tipo: 'carregando' })
     getRiscoAtual()
       .then(({ lista, offline }) => setEstado({ tipo: 'ok', lista, offline }))
-      .catch(() => setEstado({ tipo: 'erro' }))
+      .catch((e: unknown) => setEstado({ tipo: 'erro', dadoInvalido: e instanceof ErroDado }))
   }, [])
 
   useEffect(carregar, [carregar])
@@ -158,7 +158,7 @@ export default function App() {
           <span className="estado__chama" aria-hidden="true">
             <IconeChama width={40} height={40} />
           </span>
-          <p>Carregando o risco de hoje…</p>
+          <p>Carregando o risco mais recente…</p>
         </div>
         <AvisoLegal compacto />
       </>
@@ -167,9 +167,13 @@ export default function App() {
     conteudo = (
       <div className="estado estado--erro" role="alert">
         <h1 className="titulo-pagina" tabIndex={-1}>
-          Não foi possível carregar o risco
+          {estado.dadoInvalido ? 'Dado indisponível no momento' : 'Não foi possível carregar o risco'}
         </h1>
-        <p>Pode ser a internet fraca ou o sistema fora do ar. Confira sua conexão e tente de novo em instantes.</p>
+        <p>
+          {estado.dadoInvalido
+            ? 'O arquivo de risco chegou com um problema (por exemplo, uma data que não existe), então preferimos não mostrar um dado errado. Tente de novo mais tarde.'
+            : 'Pode ser a internet fraca ou o sistema fora do ar. Confira sua conexão e tente de novo em instantes.'}
+        </p>
         <button type="button" className="botao" onClick={carregar}>
           <IconeRecarregar width={20} height={20} /> Tentar de novo
         </button>

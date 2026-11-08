@@ -1,8 +1,6 @@
 # FogoCerto · Site (MVP)
 
-Tela que o cidadão usa: o risco de fogo de hoje no seu município, com os motivos explicados, para produtores rurais e defesa civil. Feita para celular simples e internet ruim.
-
-O site é **nacional**: não há estado fixo no código. A cobertura é a que vier no JSON. Hoje são 15 municípios do Pará, o recorte inicial do Big Data; quando entrarem outros estados, o seletor passa a agrupar por estado, o Panorama ganha filtro por estado e os textos de cobertura se ajustam sozinhos.
+Tela que o cidadão usa: o risco de fogo de hoje em 15 municípios do Pará, com os motivos explicados, para produtores rurais e defesa civil. Feita para celular simples e internet ruim.
 
 **Integrantes:** ver [README principal](../README.md#integrantes).
 
@@ -11,7 +9,7 @@ O site é **nacional**: não há estado fixo no código. A cobertura é a que vi
 | Rota | Tela |
 |---|---|
 | `#/` | **Início**: escolha do município e cartão com nível (cor + texto + ícone), motivos, focos, umidade, vento, chuva, calor e hora da atualização |
-| `#/panorama` | **Panorama**: todos os municípios acompanhados, do maior para o menor risco, com filtro por estado quando houver mais de um (toque abre o município no Início) |
+| `#/panorama` | **Panorama**: os 15 municípios do maior para o menor risco (toque abre o município no Início) |
 | `#/como-calculamos` | **Como calculamos**: a regra de pontos em linguagem simples e as fontes |
 | `#/assistente` | Pergunte ao assistente (GenAI): **em breve** |
 | `#/foto` | Enviar foto de fumaça (Visão): **em breve** |
@@ -49,7 +47,7 @@ O site lê **`public/data/risco_atual.json`**, o arquivo oficial gerado pelo Dat
 
 ## Regras do produto
 
-- O site **nunca autoriza queima**. Toda tela mostra: "O FogoCerto informa o risco. A autorização de queima é do órgão ambiental do seu estado." Em risco alto, recomenda não queimar e mostra Defesa Civil (199) e Bombeiros (193). O órgão estadual citado vem de `ORGAO_AMBIENTAL` em [`src/lib/estados.ts`](src/lib/estados.ts) (hoje só o Pará, conferido); estados fora da tabela recebem a orientação genérica. Ao incluir um estado novo nos dados, acrescente o órgão dele ali.
+- O site **nunca autoriza queima**. Toda tela mostra: "O FogoCerto informa o risco. A autorização de queima é do órgão ambiental do seu estado." Em risco alto, recomenda não queimar e mostra Defesa Civil (199) e Bombeiros (193).
 - Acessibilidade: nível sempre com texto e ícone de barras (não só cor), navegação por teclado com link "Pular para o conteúdo", foco visível, textos alternativos, fonte Atkinson Hyperlegible (feita para baixa visão), respeita "reduzir movimento".
 - Leve: fontes servidas pelo próprio site (só alfabeto latino), sem CDN; ~55 kB de JS comprimido.
 - Sem chave, senha ou dado pessoal no código. O único dado guardado no aparelho é o município escolhido (`localStorage`), para abrir direto nele na próxima visita.
@@ -59,7 +57,7 @@ O site lê **`public/data/risco_atual.json`**, o arquivo oficial gerado pelo Dat
 ```
 public/data/risco_atual.json   dado oficial (Big Data)
 src/data/risco.ts              leitura e validação do dado (único ponto a trocar pela API)
-src/lib/                       formatação de números, datas e fatores; nomes dos estados e órgãos ambientais
+src/lib/                       formatação de números, datas e fatores
 src/components/                medidor, selo de nível, ícones, aviso legal
 src/pages/                     Inicio, Panorama, ComoCalculamos, EmBreve
 src/App.tsx                    menu, rotas, carregamento e erro

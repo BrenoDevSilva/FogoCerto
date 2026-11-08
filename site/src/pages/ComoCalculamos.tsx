@@ -131,13 +131,9 @@ export function ComoCalculamos() {
           </li>
           <li>
             <h3>IBGE</h3>
-            <p>Códigos e nomes oficiais dos municípios.</p>
+            <p>Códigos e nomes oficiais dos 15 municípios do Pará acompanhados.</p>
           </li>
         </ul>
-        <p>
-          As três fontes cobrem <strong>todo o Brasil</strong>, então a mesma regra vale para qualquer município. A
-          lista de municípios acompanhados começou pelo Pará, um dos estados com mais focos de calor, e vai crescer.
-        </p>
         <p className="nota">
           Antes de chegar aqui, os dados passam por limpeza e conferência (camadas Bronze, Prata e Ouro no Databricks).
           Foco de calor é um ponto quente visto do espaço: pode ser incêndio, queimada ou outra fonte de calor.

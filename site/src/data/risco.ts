@@ -24,6 +24,9 @@ export interface RiscoMunicipio {
   vento_max: number | null
   temp_max: number | null
   chuva_3d: number | null
+  /** Posição do município (graus). Opcional: o Big Data ainda vai incluir no JSON. Sem isso, não há mapa. */
+  lat: number | null
+  lon: number | null
   /** Quando o dado foi gerado (AAAA-MM-DDTHH:MM:SS). */
   atualizado_em: string
 }
@@ -55,6 +58,8 @@ function validar(item: unknown): RiscoMunicipio | null {
     vento_max: numeroOuNulo(o.vento_max),
     temp_max: numeroOuNulo(o.temp_max),
     chuva_3d: numeroOuNulo(o.chuva_3d),
+    lat: numeroOuNulo(o.lat),
+    lon: numeroOuNulo(o.lon),
     atualizado_em: typeof o.atualizado_em === 'string' ? o.atualizado_em : '',
   }
 }

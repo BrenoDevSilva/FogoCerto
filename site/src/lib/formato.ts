@@ -20,12 +20,6 @@ export function fmtDataHora(iso: string): string {
   return `${m[3]}/${m[2]}/${m[1]} às ${m[4]}:${m[5]}`
 }
 
-/** Data de hoje no aparelho, no formato AAAA-MM-DD. */
-export function hojeISO(agora = new Date()): string {
-  const p = (n: number) => String(n).padStart(2, '0')
-  return `${agora.getFullYear()}-${p(agora.getMonth() + 1)}-${p(agora.getDate())}`
-}
-
 /**
  * Os fatores vêm do Databricks sem acento ("umidade minima de 39%").
  * Aqui só ajustamos a escrita para a tela; o conteúdo não muda.

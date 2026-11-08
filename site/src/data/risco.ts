@@ -7,13 +7,15 @@
  * mantendo o mesmo formato: as telas não precisam mudar.
  */
 
+import { situacaoData } from '../lib/datas'
+
 export type NivelRisco = 'baixo' | 'medio' | 'alto'
 
 export interface RiscoMunicipio {
   id_ibge: number
   nome: string
   uf: string
-  /** Dia a que o risco se refere (AAAA-MM-DD). Pode não ser hoje. */
+  /** Dia a que o risco se refere (AAAA-MM-DD). É o último dia fechado, ou seja, ontem. */
   data: string
   nivel_risco: NivelRisco
   pontos: number
@@ -64,6 +66,9 @@ function validar(item: unknown): RiscoMunicipio | null {
   }
 }
 
+/** O arquivo carregou, mas o conteúdo não serve (formato errado, vazio ou com data futura). */
+export class ErroDado extends Error {}
+
 export interface RiscoAtual {
   /** Municípios, do maior para o menor risco. */
   lista: RiscoMunicipio[]
@@ -80,9 +85,11 @@ export async function getRiscoAtual(): Promise<RiscoAtual> {
   if (!resposta.ok) throw new Error(`HTTP ${resposta.status}`)
   const offline = resposta.headers.get(CABECALHO_OFFLINE) === '1'
   const bruto: unknown = await resposta.json()
-  if (!Array.isArray(bruto)) throw new Error('Formato inesperado')
-  const lista = bruto.map(validar).filter((m): m is RiscoMunicipio => m !== null)
-  if (lista.length === 0) throw new Error('Arquivo sem municípios')
+  if (!Array.isArray(bruto)) throw new ErroDado('Formato inesperado')
+  const lidos = bruto.map(validar).filter((m): m is RiscoMunicipio => m !== null)
+  // Data depois de hoje não existe: é dado inválido e não pode ser mostrado como se fosse risco.
+  const lista = lidos.filter((m) => situacaoData(m.data) !== 'futuro')
+  if (lista.length === 0) throw new ErroDado(lidos.length ? 'Data futura no arquivo' : 'Arquivo sem municípios')
   lista.sort((a, b) => b.pontos - a.pontos || b.focos_ontem - a.focos_ontem)
   return { lista, offline }
 }

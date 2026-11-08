@@ -10,19 +10,24 @@
 
 import json
 import datetime
+import decimal
 from pyspark.sql import functions as F
 
 P = "workspace.fogocerto"
 spark.sql(f"CREATE VOLUME IF NOT EXISTS {P}.exportacao")
 
-colunas = ["id_ibge", "nome", "uf", "data", "nivel_risco", "pontos", "fatores", "focos_ontem",
+colunas = ["id_ibge", "nome", "uf", "lat", "lon", "data", "nivel_risco", "pontos", "fatores", "focos_ontem",
            "umidade_min", "vento_max", "temp_max", "chuva_3d", "atualizado_em"]
 linhas = (spark.table(f"{P}.vw_risco_atual")
-          .select(*colunas)
+          .select(*[c for c in colunas if c != "atualizado_em"],
+                  # o Databricks grava em UTC; o site mostra o horario como vem, entao exportamos em Brasilia
+                  F.from_utc_timestamp("atualizado_em", "America/Sao_Paulo").alias("atualizado_em"))
           .orderBy(F.desc("pontos"), "nome")
           .collect())
 
 def limpar(v):
+    if isinstance(v, decimal.Decimal):
+        return float(v)
     if isinstance(v, (datetime.date, datetime.datetime)):
         return v.isoformat()
     return v

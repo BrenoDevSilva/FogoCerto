@@ -119,7 +119,7 @@ display(spark.table(f"{P}.assinantes_alerta"))
 # Tabela que o MVP usa: risco do dia mais recente de cada municipio
 spark.sql(f"""
 CREATE OR REPLACE VIEW {P}.vw_risco_atual AS
-SELECT m.id_ibge, m.nome, m.uf, f.data, f.nivel_risco, f.pontos, f.fatores,
+SELECT m.id_ibge, m.nome, m.uf, m.lat, m.lon, f.data, f.nivel_risco, f.pontos, f.fatores,
        f.focos_ontem, f.umidade_min, f.vento_max, f.temp_max, f.chuva_3d, f.atualizado_em
 FROM {P}.fato_risco_municipio_dia f
 JOIN {P}.dim_municipio m ON m.id_ibge = f.id_ibge

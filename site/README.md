@@ -1,6 +1,6 @@
 # FogoCerto · Site (MVP)
 
-Tela que o cidadão usa: o risco de fogo de hoje em 15 municípios do Pará, com os motivos explicados, para produtores rurais e defesa civil. Feita para celular simples e internet ruim.
+Tela que o cidadão usa: o risco de fogo mais recente em 15 municípios do Pará, com os motivos explicados, para produtores rurais e defesa civil. Feita para celular simples e internet ruim.
 
 **Integrantes:** ver [README principal](../README.md#integrantes).
 
@@ -41,9 +41,21 @@ O site lê **`public/data/risco_atual.json`**, o arquivo oficial gerado pelo Dat
 
 - **Não edite o JSON à mão.** O time de Big Data o atualiza por pull request.
 - Toda a leitura está em [`src/data/risco.ts`](src/data/risco.ts), função `getRiscoAtual()`. Para ligar a API `GET /risco?municipio_id=`, troque só esse módulo, mantendo o mesmo formato; as telas não mudam.
-- Se a `data` do arquivo não for a de hoje, o site avisa "Dados de DD/MM". Se o arquivo não carregar, mostra uma mensagem clara com botão "Tentar de novo".
+- Se o arquivo não carregar, o site mostra uma mensagem clara com botão "Tentar de novo". A regra do campo `data` está na próxima seção.
 - Os `fatores` chegam sem acento ("umidade minima"); o site só ajusta a escrita na tela, sem mudar o conteúdo.
 - O horário `atualizado_em` é mostrado como está no arquivo, sem conversão de fuso.
+
+### Regra da data (`data` do arquivo)
+
+O pipeline de Big Data coleta o clima e os focos do **dia anterior** todo dia às 10:30 (horário de Brasília). Por isso o campo `data` do arquivo é sempre o **último dia fechado, ou seja, ONTEM**, e nunca hoje. Isso é o esperado, não um erro. O site compara a `data` com ontem no fuso **America/Sao_Paulo** (não o fuso do aparelho), em [`src/lib/datas.ts`](src/lib/datas.ts):
+
+| `data` do arquivo | O que o site faz |
+|---|---|
+| **ontem** | Sem aviso amarelo. Mostra "Risco calculado com os dados fechados de DD/MM, o último dia completo" |
+| **mais antiga que ontem** | Aviso amarelo: "Dados de DD/MM. A atualização mais recente ainda não chegou." |
+| **futura** (depois de hoje) | Dado inválido: o item é descartado; se nenhum sobrar, aparece a tela "Dado indisponível no momento" |
+
+Um dia igual a hoje (fuso de São Paulo) é aceito sem aviso: não é o esperado, mas também não é erro. Os textos do site falam em "risco mais recente", nunca em "risco de hoje", e a página "Como calculamos" explica isso ao usuário.
 
 ### Pedido ao time de Big Data: `lat` e `lon`
 

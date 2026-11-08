@@ -684,6 +684,115 @@ a {
   line-height: 1.2;
 }
 
+/* ---------- Mapa ---------- */
+
+.mapa {
+  margin: 0;
+  background: var(--cartao);
+  border: 2px solid var(--tinta);
+  border-radius: var(--raio);
+  box-shadow: 3px 3px 0 var(--tinta);
+  padding: 8px 8px 12px;
+}
+.mapa svg {
+  display: block;
+  width: 100%;
+  max-width: 560px;
+  height: auto;
+  margin: 0 auto;
+}
+.mapa__estado {
+  fill: var(--papel-2);
+  stroke: var(--tinta-2);
+  stroke-width: 4;
+  stroke-linejoin: round;
+}
+.mapa__ponto {
+  cursor: pointer;
+}
+.mapa__toque {
+  fill: transparent;
+}
+.mapa__bolinha {
+  stroke: var(--tinta);
+  stroke-width: 6;
+}
+.mapa__ponto--alto .mapa__bolinha {
+  fill: var(--alto);
+}
+.mapa__ponto--medio .mapa__bolinha {
+  fill: var(--medio);
+}
+.mapa__ponto--baixo .mapa__bolinha {
+  fill: var(--baixo);
+}
+.mapa__numero {
+  font-family: var(--f-titulo);
+  font-weight: 800;
+  font-size: 40px;
+  fill: #fff;
+  pointer-events: none;
+}
+.mapa__ponto--medio .mapa__numero {
+  fill: #2b1d00;
+}
+.mapa__ponto--baixo .mapa__numero {
+  font-size: 34px;
+}
+.mapa__nome {
+  font-family: var(--f-titulo);
+  font-weight: 800;
+  font-size: 46px;
+  text-transform: uppercase;
+  fill: var(--tinta);
+  stroke: var(--cartao);
+  stroke-width: 12;
+  paint-order: stroke;
+  pointer-events: none;
+}
+.mapa__ponto:hover .mapa__bolinha,
+.mapa__ponto:focus-visible .mapa__bolinha {
+  stroke-width: 12;
+}
+.mapa__ponto:focus-visible {
+  outline: none;
+}
+.mapa__ponto:focus-visible .mapa__toque {
+  stroke: var(--foco);
+  stroke-width: 8;
+}
+.mapa__legenda {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 6px 8px 0;
+  font-size: 0.9375rem;
+  color: var(--tinta-2);
+}
+.mapa__legenda ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+}
+.mapa__legenda-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  color: var(--tinta);
+}
+.mapa__legenda-item--alto svg {
+  color: var(--alto);
+}
+.mapa__legenda-item--medio svg {
+  color: #b27b00;
+}
+.mapa__legenda-item--baixo svg {
+  color: var(--baixo);
+}
+
 .ranking {
   list-style: none;
   padding: 0;

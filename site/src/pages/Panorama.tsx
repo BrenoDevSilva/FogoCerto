@@ -3,6 +3,7 @@ import { SeloNivel } from '../components/SeloNivel'
 import { IconeAlerta, IconeChama, IconeSeta } from '../components/Icones'
 import { AvisoLegal } from '../components/AvisoLegal'
 import { AvisoOffline } from '../components/AvisoOffline'
+import { MapaPara } from '../components/MapaPara'
 import { PONTOS_MAX, fmtData, fmtNumero, hojeISO } from '../lib/formato'
 
 interface Props {
@@ -49,6 +50,8 @@ export function Panorama({ lista, offline, onAbrir }: Props) {
           </li>
         ))}
       </ul>
+
+      <MapaPara lista={lista} onAbrir={onAbrir} />
 
       <ol className="ranking">
         {lista.map((m, i) => (

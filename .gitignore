@@ -1,0 +1,47 @@
+# Dados (ficam no PC e no Databricks, nunca no GitHub)
+bigdata/chegada/
+**/_cache_mensal/
+*.csv
+!bigdata/amostras/*.csv
+
+# Segredos e configuracao local
+.env
+.env.*
+!.env.example
+bigdata/config/variables.json
+*.tfvars
+*.tfstate
+*.tfstate.*
+.terraform/
+*.pem
+*.key
+**/simple_auth_manager_passwords.json*
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# Node / site
+node_modules/
+dist/
+build/
+.next/
+.vercel/
+
+# Sistema / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Modelos e midia grandes
+*.pt
+*.onnx
+*.safetensors
+*.mp4
+
+# Prints do relatorio (podem mostrar e-mail/conta pessoal)
+bigdata/Imagens/

@@ -1,0 +1,145 @@
+{
+  "gs_municipios": [
+    {
+      "id_ibge": 1505809,
+      "nome": "Portel",
+      "uf": "PA",
+      "lat": -3.0655,
+      "lon": -50.5757,
+      "grupo_foco": "alto",
+      "coord_origem": "media_focos_nov2026"
+    },
+    {
+      "id_ibge": 1505486,
+      "nome": "Pacajá",
+      "uf": "PA",
+      "lat": -3.6151,
+      "lon": -50.5098,
+      "grupo_foco": "alto",
+      "coord_origem": "media_focos_nov2026"
+    },
+    {
+      "id_ibge": 1508159,
+      "nome": "Uruará",
+      "uf": "PA",
+      "lat": -3.3352,
+      "lon": -54.0348,
+      "grupo_foco": "alto",
+      "coord_origem": "media_focos_nov2026"
+    },
+    {
+      "id_ibge": 1500503,
+      "nome": "Almeirim",
+      "uf": "PA",
+      "lat": -1.1768,
+      "lon": -52.9294,
+      "grupo_foco": "alto",
+      "coord_origem": "media_focos_nov2026"
+    },
+    {
+      "id_ibge": 1504802,
+      "nome": "Monte Alegre",
+      "uf": "PA",
+      "lat": -1.5093,
+      "lon": -54.2247,
+      "grupo_foco": "alto",
+      "coord_origem": "media_focos_nov2026"
+    },
+    {
+      "id_ibge": 1506005,
+      "nome": "Prainha",
+      "uf": "PA",
+      "lat": -2.3419,
+      "lon": -53.7476,
+      "grupo_foco": "alto",
+      "coord_origem": "media_focos_nov2026"
+    },
+    {
+      "id_ibge": 1505304,
+      "nome": "Oriximiná",
+      "uf": "PA",
+      "lat": 0.6447,
+      "lon": -55.9506,
+      "grupo_foco": "alto",
+      "coord_origem": "media_focos_nov2026"
+    },
+    {
+      "id_ibge": 1506807,
+      "nome": "Santarém",
+      "uf": "PA",
+      "lat": -2.7885,
+      "lon": -54.5095,
+      "grupo_foco": "alto",
+      "coord_origem": "media_focos_nov2026"
+    },
+    {
+      "id_ibge": 1503606,
+      "nome": "Itaituba",
+      "uf": "PA",
+      "lat": -4.9311,
+      "lon": -55.93,
+      "grupo_foco": "medio",
+      "coord_origem": "media_focos_nov2026"
+    },
+    {
+      "id_ibge": 1503705,
+      "nome": "Itupiranga",
+      "uf": "PA",
+      "lat": -5.0422,
+      "lon": -49.8844,
+      "grupo_foco": "medio",
+      "coord_origem": "media_focos_nov2026"
+    },
+    {
+      "id_ibge": 1508100,
+      "nome": "Tucuruí",
+      "uf": "PA",
+      "lat": -3.8459,
+      "lon": -49.9149,
+      "grupo_foco": "medio",
+      "coord_origem": "media_focos_nov2026"
+    },
+    {
+      "id_ibge": 1503804,
+      "nome": "Jacundá",
+      "uf": "PA",
+      "lat": -4.4097,
+      "lon": -49.1312,
+      "grupo_foco": "medio",
+      "coord_origem": "media_focos_nov2026"
+    },
+    {
+      "id_ibge": 1502400,
+      "nome": "Castanhal",
+      "uf": "PA",
+      "lat": -1.2484,
+      "lon": -47.8975,
+      "grupo_foco": "baixo",
+      "coord_origem": "media_focos_nov2026"
+    },
+    {
+      "id_ibge": 1506708,
+      "nome": "Santana Do Araguaia",
+      "uf": "PA",
+      "lat": -9.4296,
+      "lon": -50.6708,
+      "grupo_foco": "baixo",
+      "coord_origem": "media_focos_nov2026"
+    },
+    {
+      "id_ibge": 1507904,
+      "nome": "Soure",
+      "uf": "PA",
+      "lat": -0.3219,
+      "lon": -48.5364,
+      "grupo_foco": "baixo",
+      "coord_origem": "media_focos_nov2026"
+    }
+  ],
+  "gs_inpe_url_base": "https://dataserver-coids.inpe.br/queimadas/queimadas/focos/csv/diario/Brasil",
+  "gs_open_meteo_url": "https://api.open-meteo.com/v1/forecast",
+  "gs_chegada_dir": "/opt/airflow/chegada",
+  "gs_telegram_token": "",
+  "gs_telegram_chat_id": "",
+  "gs_inpe_url_mensal": "https://dataserver-coids.inpe.br/queimadas/queimadas/focos/csv/mensal/Brasil"
+}

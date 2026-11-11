@@ -47,7 +47,7 @@ jobs:
         with:
           scan-type: 'fs'
           format: 'table'
-          exit-code: '0'
+          exit-code: '1'
 
   deploy-production:
     needs: security-and-quality

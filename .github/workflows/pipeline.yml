@@ -35,9 +35,7 @@ jobs:
       - name: Executar Gitleaks (Detecção de Segredos)
         uses: gitleaks/gitleaks-action@v2
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          fail: true 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
 
       - name: Executar Semgrep (Análise Estática de Código)
         uses: semgrep/semgrep-action@v1

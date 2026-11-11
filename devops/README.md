@@ -6,8 +6,18 @@ Dockerfile, Terraform, pipeline GitHub Actions (build, Gitleaks, Semgrep, Trivy,
 
 # Ficha Técnica - DevOps FogoCerto
 
+## 1. Arquitetura e Deploy
 - **Diagrama:** Github Actions ➔ Docker (Non-root) ➔ CloudFront ➔ PWA.
-- **Responsabilidade:** Nuvem cuida de CDN/Infra; Equipe cuida de App, Segurança (Gitleaks/Trivy) e Deploy.
-- **LGPD:** Nenhuma coleta de dados pessoais sensíveis; apenas município no `localStorage`.
+- **Responsabilidade:** A nuvem (AWS/Azure) cuida da infraestrutura física e CDN. A nossa equipe cuida da aplicação, da segurança (Gitleaks, Semgrep, Trivy) e do pipeline de deploy.
+- **LGPD:** Nenhuma coleta de dados pessoais sensíveis; apenas o município escolhido fica salvo no `localStorage`.
 - **Custo:** R$ 0,00 (Free Tier de armazenamento estático).
-- **URL Pública:** [INSERIR O LINK GERADO AQUI]
+- **URL Pública:** [COLOQUE O LINK DO SITE AQUI QUANDO TIVER]
+
+## 2. Evidências do Pipeline (CI/CD)
+Conforme exigido, o pipeline barra a execução caso encontre erros críticos no projeto. 
+
+**Execução Barrada (Pipeline quebrou ao encontrar problema real):**
+![Pipeline Barrado](./erro-pipeline.png)
+
+**Execução Corrigida (Problema resolvido, pipeline aprovado):**
+![Pipeline Corrigido](./correcao-pipeline.png)

@@ -1,4 +1,3 @@
-
 name: CI/CD FogoCerto Pipeline
 
 on:
@@ -7,7 +6,7 @@ on:
     paths:
       - 'site/**'
       - '.github/workflows/pipeline.yml'
-      - 'DevopsGS/**'
+      - 'devops/**'
   pull_request:
     branches: [ main ]
 
@@ -17,6 +16,8 @@ jobs:
     steps:
       - name: Checkout do Código
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 
 
       - name: Configurar Node.js (Versão 20)
         uses: actions/setup-node@v4
@@ -35,6 +36,8 @@ jobs:
         uses: gitleaks/gitleaks-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          fail: true 
 
       - name: Executar Semgrep (Análise Estática de Código)
         uses: semgrep/semgrep-action@v1
@@ -45,7 +48,6 @@ jobs:
         uses: aquasecurity/trivy-action@master
         with:
           scan-type: 'fs'
-          scan-dir: '.'
           format: 'table'
           exit-code: '0'
 

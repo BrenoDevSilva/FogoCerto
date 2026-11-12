@@ -11,7 +11,7 @@ Dockerfile, Terraform, pipeline GitHub Actions (build, Gitleaks, Semgrep, Trivy,
 - **Responsabilidade:** A nuvem (AWS/Azure) cuida da infraestrutura física e CDN. A nossa equipe cuida da aplicação, da segurança (Gitleaks, Semgrep, Trivy) e do pipeline de deploy.
 - **LGPD:** Nenhuma coleta de dados pessoais sensíveis; apenas o município escolhido fica salvo no `localStorage`.
 - **Custo:** R$ 0,00 (Free Tier de armazenamento estático).
-- **URL Pública:** [COLOQUE O LINK DO SITE AQUI QUANDO TIVER]
+- **URL Pública:** [fogocerto.vercel.app]
 
 ## 2. Evidências do Pipeline (CI/CD)
 Conforme exigido, o pipeline barra a execução caso encontre erros críticos no projeto. 

@@ -1,0 +1,9 @@
+version: '3.8'
+services:
+  fogocerto-web:
+    build:
+      context: ../..
+      dockerfile: devops/docker/Dockerfile
+    ports:
+      - "8080:8080"
+    restart: unless-stopped

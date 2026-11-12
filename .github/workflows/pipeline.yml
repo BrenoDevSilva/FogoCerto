@@ -1,0 +1,62 @@
+name: CI/CD FogoCerto Pipeline
+
+on:
+  push:
+    branches: [ main, devops/* ]
+    paths:
+      - 'site/**'
+      - '.github/workflows/pipeline.yml'
+      - 'devops/**'
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  security-and-quality:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do Código
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 
+
+      - name: Configurar Node.js (Versão 20)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: site/package-lock.json
+
+      - name: Instalar Dependências e Gerar Build
+        working-directory: ./site
+        run: |
+          npm ci
+          npm run build
+
+      - name: Executar Gitleaks (Detecção de Segredos)
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+
+      - name: Executar Semgrep (Análise Estática de Código)
+        uses: semgrep/semgrep-action@v1
+        with:
+          config: auto
+
+      - name: Varredura de Vulnerabilidades com Trivy
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          format: 'table'
+          exit-code: '0'
+
+  deploy-production:
+    needs: security-and-quality
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do Código
+        uses: actions/checkout@v4
+
+      - name: Executar Deploy Automático
+        run: |
+          echo "Realizando deploy automático do FogoCerto..."

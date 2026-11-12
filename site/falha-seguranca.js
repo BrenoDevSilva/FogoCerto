@@ -1,0 +1,1 @@
+eval("console.log('Isso é uma falha de segurança grave pro Semgrep')");

@@ -1,0 +1,11 @@
+# Inferência (API e vídeo). O treino roda no Colab: ver notebooks/.
+ultralytics>=8.3,<9
+pi-heif>=0.18          # o Ultralytics usa para ler HEIC (foto de iPhone); declarado para não ser instalado em tempo de execução
+fastapi>=0.110
+uvicorn>=0.29
+python-multipart>=0.0.9
+pillow>=10
+
+# Testes
+pytest>=8
+httpx>=0.27

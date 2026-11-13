@@ -107,3 +107,9 @@ export const IconeRecarregar = (p: P) => (
     <path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v5h-5" />
   </svg>
 )
+export const IconeSino = (p: P) => (
+  <svg {...base(p)}>
+    <path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z" />
+    <path d="M10 20.5a2 2 0 0 0 4 0" />
+  </svg>
+)

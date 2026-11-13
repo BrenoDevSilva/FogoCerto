@@ -1,0 +1,10 @@
+2026-11-13 11:18:35 | INFO    | inicio execucao=20261113T111835 fonte=risco_valido.json hoje=2026-11-08 simulado=True
+2026-11-13 11:18:35 | WARNING | assinante 5 ignorado: municipio_id, canal (telegram/email) ou destino inválido
+2026-11-13 11:18:35 | INFO    | assinantes carregados: 5 em 4 municípios
+2026-11-13 11:18:35 | INFO    | municipio=Monte Alegre id=1504802 nivel=alto focos=349 data=2026-11-07 decisao=risco_alto assinante=f82ffd3121 canal=telegram resultado=enviado
+2026-11-13 11:18:35 | INFO    | municipio=Monte Alegre id=1504802 nivel=alto focos=349 data=2026-11-07 decisao=risco_alto assinante=e778be9e61 canal=email resultado=enviado
+2026-11-13 11:18:35 | INFO    | municipio=Oriximiná id=1505304 nivel=medio focos=120 data=2026-11-07 decisao=risco_medio_muitos_focos assinante=7058fb7047 canal=telegram resultado=enviado
+2026-11-13 11:18:35 | INFO    | municipio=Abaetetuba id=1500107 nivel=medio focos=4 data=2026-11-07 decisao=sem_alerta_risco_medio
+2026-11-13 11:18:35 | INFO    | municipio=Castanhal id=1502400 nivel=baixo focos=0 data=2026-11-07 decisao=sem_alerta_risco_baixo
+2026-11-13 11:18:35 | INFO    | site atualizado: alertas.json (2 alertas novos)
+2026-11-13 11:18:35 | INFO    | fim status=concluido contagens={"municipios_lidos": 4, "itens_invalidos": 0, "municipios_com_alerta": 2, "enviados": 3, "sem_alerta": 2} log=rpa_2026-11-13.log

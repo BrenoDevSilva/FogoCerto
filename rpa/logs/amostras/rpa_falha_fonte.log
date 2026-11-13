@@ -1,0 +1,7 @@
+2026-11-13 11:18:35 | INFO    | inicio execucao=20261113T111835 fonte=nao_existe.json hoje=2026-11-08 simulado=True
+2026-11-13 11:18:35 | WARNING | leitura da fonte falhou (tentativa 1/3): arquivo não encontrado
+2026-11-13 11:18:36 | WARNING | leitura da fonte falhou (tentativa 2/3): arquivo não encontrado
+2026-11-13 11:18:36 | WARNING | leitura da fonte falhou (tentativa 3/3): arquivo não encontrado
+2026-11-13 11:18:36 | ERROR   | ABORTADO: fonte indisponível (arquivo não encontrado). Nenhum alerta enviado.
+2026-11-13 11:18:36 | INFO    | site atualizado: alertas.json (0 alertas novos)
+2026-11-13 11:18:36 | INFO    | fim status=abortado_fonte_indisponivel contagens={} log=rpa_2026-11-13.log

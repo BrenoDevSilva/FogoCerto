@@ -1,0 +1,15 @@
+{
+  "id_execucao": "20261113T111835",
+  "inicio": "2026-11-13T11:18:35-03:00",
+  "status": "abortado_fonte_indisponivel",
+  "fonte": "nao_existe.json",
+  "data_referencia": "2026-11-08",
+  "data_dado": null,
+  "simulado": true,
+  "contagens": {},
+  "problemas_no_dado": [],
+  "erros": [
+    "fonte indisponível: arquivo não encontrado"
+  ],
+  "fim": "2026-11-13T11:18:36-03:00"
+}

@@ -1,0 +1,8 @@
+[
+  {"id_ibge": 1504802, "nome": "Monte Alegre", "uf": "PA", "data": "2026-11-07", "nivel_risco": "alto", "pontos": 7, "fatores": "349 focos ontem no municipio", "focos_ontem": 349},
+  {"id_ibge": 1504802, "nome": "Monte Alegre", "uf": "PA", "data": "2026-11-07", "nivel_risco": "alto", "pontos": 7, "fatores": "linha repetida", "focos_ontem": 349},
+  {"id_ibge": 1500503, "nome": "Almeirim", "uf": "PA", "data": "2026-11-07", "nivel_risco": "ALTISSIMO", "focos_ontem": 10},
+  {"id_ibge": 1503606, "nome": "Itaituba", "uf": "PA", "data": "2026-12-25", "nivel_risco": "alto", "focos_ontem": 10},
+  {"nome": "Sem código", "uf": "PA", "data": "2026-11-07", "nivel_risco": "alto"},
+  {"id_ibge": 1502400, "nome": "Castanhal", "uf": "PA", "data": "2026-11-07", "nivel_risco": "baixo", "focos_ontem": -3}
+]

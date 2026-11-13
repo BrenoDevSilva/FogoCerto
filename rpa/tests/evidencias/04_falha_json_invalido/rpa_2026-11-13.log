@@ -1,0 +1,4 @@
+2026-11-13 11:18:36 | INFO    | inicio execucao=20261113T111836 fonte=risco_quebrado.json hoje=2026-11-08 simulado=True
+2026-11-13 11:18:36 | ERROR   | ABORTADO: dado inválido (JSON ilegível: Expecting ',' delimiter: line 1 column 68 (char 67)). Nenhum alerta enviado.
+2026-11-13 11:18:36 | INFO    | site atualizado: alertas.json (0 alertas novos)
+2026-11-13 11:18:36 | INFO    | fim status=abortado_dado_invalido contagens={} log=rpa_2026-11-13.log

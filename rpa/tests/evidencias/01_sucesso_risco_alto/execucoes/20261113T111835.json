@@ -1,0 +1,19 @@
+{
+  "id_execucao": "20261113T111835",
+  "inicio": "2026-11-13T11:18:35-03:00",
+  "status": "concluido",
+  "fonte": "risco_valido.json",
+  "data_referencia": "2026-11-08",
+  "data_dado": "2026-11-07",
+  "simulado": true,
+  "contagens": {
+    "municipios_lidos": 4,
+    "itens_invalidos": 0,
+    "municipios_com_alerta": 2,
+    "enviados": 3,
+    "sem_alerta": 2
+  },
+  "problemas_no_dado": [],
+  "erros": [],
+  "fim": "2026-11-13T11:18:35-03:00"
+}

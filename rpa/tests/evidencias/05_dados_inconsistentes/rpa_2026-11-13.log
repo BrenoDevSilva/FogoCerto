@@ -1,0 +1,12 @@
+2026-11-13 11:18:36 | INFO    | inicio execucao=20261113T111836 fonte=risco_com_problemas.json hoje=2026-11-08 simulado=True
+2026-11-13 11:18:36 | WARNING | item ignorado: item 1: município 1504802 repetido no arquivo (mantido o primeiro)
+2026-11-13 11:18:36 | WARNING | item ignorado: item 2: município 1500503: nivel_risco desconhecido 'ALTISSIMO'
+2026-11-13 11:18:36 | WARNING | item ignorado: item 3: município 1503606: data futura 2026-12-25
+2026-11-13 11:18:36 | WARNING | item ignorado: item 4: id_ibge ausente ou não numérico
+2026-11-13 11:18:36 | WARNING | item ignorado: item 5: município 1502400: focos_ontem inválido -3
+2026-11-13 11:18:36 | WARNING | assinante 5 ignorado: municipio_id, canal (telegram/email) ou destino inválido
+2026-11-13 11:18:36 | INFO    | assinantes carregados: 5 em 4 municípios
+2026-11-13 11:18:36 | INFO    | municipio=Monte Alegre id=1504802 nivel=alto focos=349 data=2026-11-07 decisao=risco_alto assinante=f82ffd3121 canal=telegram resultado=enviado
+2026-11-13 11:18:36 | INFO    | municipio=Monte Alegre id=1504802 nivel=alto focos=349 data=2026-11-07 decisao=risco_alto assinante=e778be9e61 canal=email resultado=enviado
+2026-11-13 11:18:36 | INFO    | site atualizado: alertas.json (1 alertas novos)
+2026-11-13 11:18:36 | INFO    | fim status=concluido contagens={"municipios_lidos": 1, "itens_invalidos": 5, "municipios_com_alerta": 1, "enviados": 2} log=rpa_2026-11-13.log

@@ -1,0 +1,75 @@
+```gitignore
+# ==========================================
+# Edge Impulse - arquivos e artefatos gerados
+# ==========================================
+
+# Bibliotecas e SDKs exportados
+**/edge-impulse-sdk/
+**/model-parameters/
+**/tflite-model/
+**/trained_model/
+**/ei-model/
+
+# Modelos compilados e arquivos binários
+*.tflite
+*.eim
+*.onnx
+*.h5
+*.keras
+*.pb
+*.tflite
+*.cc
+*.cpp
+*.o
+*.a
+*.so
+*.dll
+
+# Dados de treinamento e amostras
+**/training/
+**/testing/
+**/samples/
+**/dataset/
+**/datasets/
+*.zip
+*.tar
+*.gz
+
+# Arquivos temporários e caches
+**/.cache/
+**/cache/
+**/build/
+**/dist/
+**/tmp/
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
+
+# Configurações locais e credenciais
+secrets.h
+.env
+.env.*
+!.env.example
+
+# ==========================================
+# Arduino / PlatformIO
+# ==========================================
+
+.pio/
+.vscode/
+.idea/
+*.elf
+*.hex
+*.bin
+*.map
+
+# ==========================================
+# Python
+# ==========================================
+
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/

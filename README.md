@@ -14,14 +14,14 @@ FogoCerto avisa, a cada manhã, produtores rurais e a defesa civil se há risco 
 | Gustavo Akio | RM550241 |
 | Rafael Franck | RM550875 |
 
-> Nome completo e RM de todos são obrigatórios aqui e em cada relatório. Sem os nomes no README, o grupo fica sem nota no Maker Lab.
-
 ## Links
 
-- MVP (site publicado): _a definir_
-- Vídeo pitch (YouTube, não listado): _a definir_
-- Vídeo Maker Lab: _a definir_
+- MVP (site publicado): [fogocerto.vercel.app](fogocerto.vercel.app)
+- Vídeo pitch (YouTube, não listado): [Global Solution FIAP 2026/2 - FogoCerto - 4ESPW](https://youtu.be/lKqDmocMIbw)
+- Vídeo Maker Lab: [Assistir ao vídeo do carrinho](maker/evidencias/video-carrinho.mp4)
 - Vídeo RPA: _a definir_
+- Vídeo Visão Computacional: _a definir_
+- Vídeo IA: _a definir_
 
 ## Como o projeto está organizado
 

@@ -1,0 +1,4 @@
+grupo,n,recall@1,recall@3,recall@5
+todos,35,57.1,74.3,80.0
+lei_direta,20,70.0,85.0,85.0
+linguagem_produtor,15,40.0,60.0,73.3

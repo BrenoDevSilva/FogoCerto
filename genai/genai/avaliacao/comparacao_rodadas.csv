@@ -1,0 +1,7 @@
+rodada,configuracao,grupo,n,acertos,acerto_%,alucinacao_%,erro_sem_recusa_%,json_valido_%,fonte_correta_%,recusa_correta_%,autorizou_queima_%,ms_por_pergunta,com ferramenta
+rodada 1,sem_contexto,TOTAL,64,16/64,25.0,89.1,65.3,95.3,4.1,79.7,1.6,1009,-
+rodada 2,sem_contexto,TOTAL,64,16/64,25.0,37.5,53.1,96.9,0.0,67.2,0.0,951,-
+rodada 1,rag,TOTAL,64,44/64,68.8,12.5,16.3,93.8,61.2,85.9,1.6,1969,-
+rodada 2,rag,TOTAL,64,47/64,73.4,3.1,12.2,100.0,65.3,82.8,0.0,1348,-
+rodada 1,agente,TOTAL,64,27/64,42.2,65.6,46.9,93.8,24.5,84.4,1.6,4753,15/64
+rodada 2,agente,TOTAL,64,45/64,70.3,3.1,20.4,100.0,55.1,85.9,1.6,9244,41/64

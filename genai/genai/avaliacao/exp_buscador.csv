@@ -1,0 +1,5 @@
+buscador,grupo,recall@1,recall@3
+tfidf (palavras),lei_direta,70.0,86.7
+tfidf (palavras),linguagem_produtor,23.8,38.1
+e5 (significado),lei_direta,70.0,86.7
+e5 (significado),linguagem_produtor,42.9,66.7

@@ -2,7 +2,15 @@
 
 Pipeline que coleta dados reais de focos de calor (INPE) e clima (Open-Meteo), trata em camadas Bronze, Prata e Ouro no Databricks e entrega ao MVP a tabela de risco de fogo por município e dia.
 
-**Integrantes:** ver [README principal](../README.md#integrantes).
+## Integrantes
+
+| Nome completo | RM |
+|---|---|
+| Breno Silva | RM99275 |
+| Eduardo Araujo | RM99758 |
+| Gabriela Trevisan | RM99500 |
+| Gustavo Akio | RM550241 |
+| Rafael Franck | RM550875 |
 
 ## Perguntas que o MVP responde
 

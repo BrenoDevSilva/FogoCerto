@@ -10,7 +10,8 @@
 | Gustavo Akio | RM550241 |
 | Rafael Franck | RM550875 |
 
-- Vídeo (até 3 min): _a definir_
+- Vídeo (até 3 min): <https://youtu.be/4NxAmXulvdA>
+- Relatório técnico (PDF): [`docs/relatorio_rpa.pdf`](docs/relatorio_rpa.pdf)
 - Repositório: <https://github.com/BrenoDevSilva/FogoCerto> (pasta `rpa/`)
 
 ## O problema e o papel da automação

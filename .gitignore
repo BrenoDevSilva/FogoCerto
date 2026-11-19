@@ -47,9 +47,9 @@ Thumbs.db
 *.safetensors
 *.mp4
 
-# Prints do relatorio (podem mostrar e-mail/conta pessoal)
-bigdata/Imagens/
-
 # Visao: saidas locais do notebook e imagens proprias (LGPD)
 visao/saida_visao/
 visao/imagens_proprias/
+
+# Prints do relatorio (podem mostrar e-mail/conta pessoal)
+bigdata/Imagens/

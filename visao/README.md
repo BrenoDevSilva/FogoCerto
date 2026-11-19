@@ -14,8 +14,9 @@ Detecção de **fumaça** e **fogo** em imagens com um **YOLO11** treinado sob m
 
 Próximo passo (não construído): a mesma entrada "uma imagem" serve para quadros de **câmeras fixas** em fazendas e torres.
 
-- Vídeo de demonstração: _a definir_
-- Peso treinado (`best.pt`): _a definir (link do Drive)_
+- Vídeo de demonstração: <https://youtu.be/IZauw6l9Onw>
+- Relatório técnico (PDF): [`docs/relatorio_visao.pdf`](docs/relatorio_visao.pdf)
+- Peso treinado: [`modelos/best.pt`](modelos/best.pt) (YOLO11n treinado no D-Fire, 5,5 MB). Já vem no repositório, então a API e o vídeo rodam sem treinar de novo.
 
 ## Como funciona
 
@@ -72,17 +73,17 @@ curl -F "imagem=@amostras/fogo_dfire_AoF07937.jpg;type=image/jpeg" -F municipio_
 ```json
 {
   "classe": "fogo",
-  "confianca": 0.87,
+  "confianca": 0.777,
   "duvida": false,
   "mensagem": "Possível fogo detectado. Afaste-se e ligue para os Bombeiros (193) ou a Defesa Civil (199).",
   "aviso": "O FogoCerto ajuda a triar. A confirmação é de quem está no local e da Defesa Civil.",
-  "deteccoes": [{"classe": "fogo", "confianca": 0.87, "caixa": [102.0, 88.5, 240.1, 210.0]}],
+  "deteccoes": [{"classe": "fogo", "confianca": 0.777, "caixa": [392.1, 120.1, 426.5, 151.5]}, …],
   "municipio_id": 1500503,
   "risco_municipio": "alto",
   "prioridade": "alta"
 }
 ```
-_(exemplo ilustrativo do formato; os valores reais vêm do modelo treinado)_
+_(resposta real do modelo treinado para a amostra; a lista de detecções foi encurtada)_
 
 | Campo | Significado |
 |---|---|
@@ -99,7 +100,17 @@ python src/detectar_video.py --fonte 0                                   # webca
 python src/detectar_video.py --fonte video.mp4 --saida resultados/demo.mp4
 ```
 
-### 4. Testes
+### 4. Imagens próprias sem Colab
+
+Coloque as fotos em `visao/imagens_proprias/` (fora do Git) com o nome começando pela resposta certa (`fogo_`, `fumaca_` ou `nada_`) e rode:
+
+```bash
+python src/avaliar_proprias.py
+```
+
+Gera `resultados/imagens_proprias_resultados.csv` e `resultados/imagens_proprias.png`, igual à seção 8 do notebook.
+
+### 5. Testes
 
 ```bash
 python -m pytest -q tests
@@ -107,23 +118,27 @@ python -m pytest -q tests
 
 ## Resultados
 
-> **Preencher depois do treino** com os números de `resultados/metricas_teste_caixas.json` e `resultados/limiar_recomendado.json`. Não copie números de outro trabalho.
+YOLO11n, 30 épocas (cerca de 2 h numa GPU T4 do Colab), imagens de 640 px. Números de `resultados/metricas_teste_caixas.json` e `resultados/limiar_recomendado.json`.
 
 | Métrica (teste, 4.306 imagens) | Fumaça | Fogo | Geral |
 |---|---|---|---|
-| mAP@50 | | | |
-| mAP@50-95 | | | |
-| Precisão | | | |
-| Recall | | | |
+| mAP@50 | 0,801 | 0,684 | **0,742** |
+| mAP@50-95 | 0,482 | 0,354 | **0,418** |
+| Precisão | 0,803 | 0,715 | 0,759 |
+| Recall | 0,735 | 0,598 | 0,667 |
 
 | Por imagem (limiar escolhido) | Valor |
 |---|---|
-| Limiar / limiar de dúvida | |
-| Sensibilidade (fotos com fogo/fumaça avisadas) | |
-| Falso alarme (fotos sem nada alarmadas) | |
-| Velocidade em CPU (ms por imagem / FPS) | |
+| Limiar / limiar de dúvida | 0,15 / 0,10 |
+| Sensibilidade (fotos com fogo/fumaça avisadas) | 95,7% |
+| Falso alarme (fotos sem nada alarmadas) | 5,0% |
+| Acurácia nas 3 respostas (fogo, fumaça, nada) | 93,3% |
+| Velocidade em CPU (ms por imagem / FPS) | 76,2 ms / 13,1 FPS |
+| Velocidade em GPU T4 (ms por imagem / FPS) | 15,6 ms / 64,2 FPS |
 
-Figuras: `resultados/teste_caixas/confusion_matrix_normalized.png`, `resultados/matriz_confusao_por_imagem.png`, `resultados/curva_limiares.png`, `resultados/erros_falso_alarme.png`, `resultados/erros_perdidos.png`.
+Figuras: `resultados/teste_caixas/confusion_matrix_normalized.png`, `resultados/matriz_confusao_por_imagem.png`, `resultados/curva_limiares.png`, `resultados/erros_falso_alarme.png`, `resultados/erros_perdidos.png`, `resultados/exemplos_deteccao.png`, `resultados/api_demo.png`.
+
+O limiar baixo (0,15) é esperado: o modelo dá confiança moderada para fumaça fina e distante, e a escolha privilegia não perder ocorrências (95,7% avisadas) mantendo o falso alarme em 5%.
 
 ## Escolha do limiar
 
@@ -133,7 +148,7 @@ Figuras: `resultados/teste_caixas/confusion_matrix_normalized.png`, `resultados/
 
 ## Limitações conhecidas
 
-- Nuvem, neblina, poeira, pôr do sol e luz forte podem ser confundidos com fumaça ou fogo. Os casos reais estão em `resultados/erros_*.png` e `resultados/erros_para_anotar.csv`.
+- Nuvens, neblina e luzes à noite são as causas mais comuns de falso alarme entre os 12 casos mais confiantes que anotamos; outra fonte são pontos pequenos no horizonte das câmeras fixas, alguns possivelmente fumaça sem rótulo no dataset. Os casos reais estão em `resultados/erros_*.png` e `resultados/erros_para_anotar.csv`.
 - Fumaça fina ou muito distante é a principal fonte de fogo perdido.
 - O D-Fire tem muita imagem de câmera de vigilância. Por isso testamos também fotos de celular próprias.
 

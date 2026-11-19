@@ -1,0 +1,41 @@
+{
+  "limiar": 0.15,
+  "limiar_duvida": 0.1,
+  "criterio": "limiar = maior F1 de ocorrência no teste; limiar_duvida = maior limiar abaixo dele com sensibilidade >= 0.95",
+  "no_limiar": {
+    "limiar": 0.15,
+    "acuracia": 0.9333,
+    "precisao_fogo": 0.944,
+    "recall_fogo": 0.9525,
+    "f1_fogo": 0.9482,
+    "precisao_fumaca": 0.8938,
+    "recall_fumaca": 0.887,
+    "f1_fumaca": 0.8904,
+    "precisao_nada": 0.9506,
+    "recall_nada": 0.9501,
+    "f1_nada": 0.9504,
+    "sensibilidade_ocorrencia": 0.957,
+    "falso_alarme": 0.0499,
+    "precisao_ocorrencia": 0.9566,
+    "f1_ocorrencia": 0.9568,
+    "f1_macro": 0.9297
+  },
+  "no_limiar_duvida": {
+    "limiar": 0.1,
+    "acuracia": 0.9294,
+    "precisao_fogo": 0.9275,
+    "recall_fogo": 0.9632,
+    "f1_fogo": 0.945,
+    "precisao_fumaca": 0.8802,
+    "recall_fumaca": 0.8921,
+    "f1_fumaca": 0.8861,
+    "precisao_nada": 0.9609,
+    "recall_nada": 0.9327,
+    "f1_nada": 0.9466,
+    "sensibilidade_ocorrencia": 0.967,
+    "falso_alarme": 0.0673,
+    "precisao_ocorrencia": 0.9428,
+    "f1_ocorrencia": 0.9547,
+    "f1_macro": 0.9259
+  }
+}

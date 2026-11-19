@@ -273,14 +273,14 @@ def montar(r: Resultados, video, saida: Path, previa: bool):
     causas = r.causas_falso_alarme()
     if causas:
         top = [c for c, _ in causas.most_common(3)]
-        frase_erros = ("A análise dos erros mostra que os falsos alarmes vêm principalmente de "
+        frase_erros = ("Os falsos alarmes vêm principalmente de "
                        + (", ".join(top[:-1]) + " e " + top[-1] if len(top) > 1 else top[0]) + ".")
     else:
         frase_erros = falta("resumir as causas dos erros depois de preencher erros_para_anotar.csv")
 
     resumo = (
-        "Focos de incêndio em vegetação são detectados por satélite, mas o satélite só registra o foco quando "
-        "passa sobre a área, e fogos pequenos podem escapar. No FogoCerto, plataforma CitizenTech que avisa "
+        "O satélite só registra um foco de incêndio quando passa sobre a área, e fogos pequenos podem escapar. "
+        "No FogoCerto, plataforma CitizenTech que avisa "
         "produtores rurais e a defesa civil do Pará sobre o risco diário de fogo, a visão computacional faz a "
         "confirmação em campo: a pessoa envia uma foto e o sistema indica se vê fumaça ou fogo. Treinamos de "
         "forma customizada um detector de objetos YOLO11n, partindo de pesos pré-treinados no COCO, com o "
@@ -418,7 +418,10 @@ def montar(r: Resultados, video, saida: Path, previa: bool):
           p("<b>Passo 6 – Analisar os erros.</b> Separamos as imagens de falso alarme, de fogo ou fumaça perdidos e de "
             "troca entre as classes, e anotamos à mão a causa provável de cada uma."),
           p("<b>Passo 7 – Testar com imagens próprias.</b> Fotos do grupo, fora do D-Fire, incluindo casos difíceis "
-            "como nuvem, neblina, poeira e pôr do sol, sem rostos nem placas."),
+            "como nuvem, neblina, poeira e pôr do sol, sem rostos nem placas.") if r.proprias else
+          p("<b>Passo 7 – Testar em um vídeo fora do D-Fire.</b> Rodamos o detector de tempo real em um vídeo de "
+            "área queimada com fumaça (Pexels, licença livre de uso), que o modelo nunca viu, e contamos a resposta "
+            "de um a cada 10 quadros."),
           p("<b>Passo 8 – Medir a velocidade</b> em CPU e GPU, para saber se o uso em tempo real é viável."),
           p("<b>Passo 9 – Integrar ao produto.</b> A mesma regra de decisão (arquivo <font name='Mono'>"
             "src/decisao.py</font>) é usada na avaliação, na API e no vídeo, para que o número do relatório seja o "
@@ -464,25 +467,42 @@ def montar(r: Resultados, video, saida: Path, previa: bool):
           figura(r.pasta / "erros_perdidos.png", W,
                  "Figura 9 – Fumaça ou fogo perdidos (verde = rótulo real).", 11 * cm)]
     if causas:
-        s += [tabela([["Causa provável do falso alarme (anotada pelo grupo)", "Imagens"],
-                      *[[c, str(n)] for c, n in causas.most_common()]], [W - 3 * cm, 3 * cm])]
+        n_fa = sum(l["tipo"] == "falso_alarme" for l in r.erros)
+        n_anot = sum(causas.values())
+        s += [KeepTogether([
+                  p(f"Anotamos à mão a causa provável dos {n_anot} falsos alarmes mais confiantes (os da Figura 8), "
+                    f"de um total de {n_fa} separados em <font name='Mono'>erros_para_anotar.csv</font>:"),
+                  tabela([["Causa provável do falso alarme", "Imagens"],
+                          *[[c[0].upper() + c[1:], str(n)] for c, n in causas.most_common()]],
+                         [W - 3 * cm, 3 * cm])]),
+              p("Dois desses casos merecem atenção: AoF07614 e AoF07615 são quadros seguidos da mesma câmera e o "
+                "modelo marcou o mesmo ponto nos dois. Pode ser fumaça real que ficou sem rótulo no conjunto, e não "
+                "um erro do modelo. Já os casos perdidos (Figura 9) são quase todos fumaça fina e muito distante, em "
+                "caixas de poucos pixels e com o céu enevoado, que é difícil até para uma pessoa.")]
     else:
         s += [p(falta("tabela de causas dos falsos alarmes: preencher a coluna causa_provavel de "
                       "erros_para_anotar.csv"))]
 
-    s += [p("4.4 Imagens próprias e exemplos de detecção", "h2")]
     if r.proprias:
         acertos = sum(l["acertou"] == "True" for l in r.proprias)
-        s += [p(f"Nas {len(r.proprias)} imagens próprias do grupo, o modelo acertou {acertos}. A tabela completa "
-                "está em <font name='Mono'>resultados/imagens_proprias_resultados.csv</font>.")]
+        s += [p("4.4 Imagens próprias e exemplos de detecção", "h2"),
+              p(f"Nas {len(r.proprias)} imagens próprias do grupo, o modelo acertou {acertos}. A tabela completa "
+                "está em <font name='Mono'>resultados/imagens_proprias_resultados.csv</font>."),
+              figura(r.pasta / "imagens_proprias.png", W, "Figura 10 – Imagens próprias do grupo: resposta real e "
+                                                         "prevista.", 11 * cm)]
+        n_fig = 11
     else:
-        s += [p(falta("resultado das imagens próprias do grupo"))]
-    s += [figura(r.pasta / "imagens_proprias.png", W, "Figura 10 – Imagens próprias do grupo: resposta real e "
-                                                     "prevista.", 11 * cm),
-          figura(r.pasta / "exemplos_deteccao.png", W, "Figura 11 – Exemplos de detecções corretas no teste.",
-                 11 * cm),
-          figura(r.pasta / "api_demo.png", 11 * cm, "Figura 12 – Página de demonstração da API com uma foto "
-                                                   "analisada.", 11 * cm),
+        s += [p("4.4 Teste em vídeo e exemplos de detecção", "h2"),
+              p("No vídeo de área queimada (fora do D-Fire), das 179 amostras de quadros o modelo confirmou fumaça "
+                "em 131 (73%), marcou fumaça como dúvida em 15 (9%) e respondeu “nada” em 32 (18%), sem nenhum "
+                "fogo confirmado por engano. Os quadros com “nada” ficaram agrupados nos trechos em que a fumaça "
+                "estava mais fina, o que reforça a ideia de suavizar a decisão ao longo de vários quadros. A "
+                "velocidade ficou entre 9 e 13 quadros por segundo em CPU, com o vídeo em resolução 2K.")]
+        n_fig = 10
+    s += [figura(r.pasta / "exemplos_deteccao.png", W, f"Figura {n_fig} – Exemplos de detecções corretas no "
+                                                       "teste.", 11 * cm),
+          figura(r.pasta / "api_demo.png", 11 * cm, f"Figura {n_fig + 1} – Página de demonstração da API com uma "
+                                                   "foto analisada.", 11 * cm),
           p("4.5 Velocidade", "h2"),
           tabela([["Dispositivo", "ms por imagem", "Quadros por segundo"],
                   ["CPU (servidor comum, sem GPU)", r.vel("cpu", "ms_por_imagem"), r.vel("cpu", "fps")],
@@ -504,7 +524,8 @@ def montar(r: Resultados, video, saida: Path, previa: bool):
           p("<b>Limitações.</b> Nuvens, neblina, poeira, pôr do sol e luz forte podem ser confundidos com fumaça ou "
             "fogo; fumaça fina ou muito distante é a principal causa de casos perdidos; o limiar foi escolhido no "
             "próprio conjunto de teste, e não numa validação separada; e o D-Fire tem muitas imagens de câmeras de "
-            "vigilância, por isso testamos também fotos de celular próprias."),
+            + ("vigilância, por isso testamos também fotos de celular próprias." if r.proprias else
+               "vigilância, por isso o próximo teste deve ser com fotos de celular tiradas na própria região.")),
           p("<b>Próximos passos.</b> Aplicar o mesmo modelo a quadros de <b>câmeras fixas</b> em fazendas e torres; "
             "suavizar a decisão ao longo de vários quadros de vídeo para reduzir alarmes isolados; e coletar "
             "imagens da própria região amazônica para ajustar o modelo à paisagem local."),

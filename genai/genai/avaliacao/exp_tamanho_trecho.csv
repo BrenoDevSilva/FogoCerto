@@ -1,0 +1,4 @@
+configuracao,acertos,acerto_%,alucinacao_%,erro_sem_recusa_%,json_valido_%,fonte_correta_%,recusa_correta_%,ms_por_pergunta,n_trechos,recall@1,recall@3
+até 600 caracteres,75/94,79.8,3.2,9.7,100.0,70.8,87.2,1198,183,61.5,76.9
+até 1.200 caracteres (principal),75/94,79.8,3.2,9.7,100.0,70.8,87.2,1370,116,59.6,78.8
+artigo inteiro,74/94,78.7,4.3,12.5,100.0,63.9,88.3,1422,95,53.8,75.0

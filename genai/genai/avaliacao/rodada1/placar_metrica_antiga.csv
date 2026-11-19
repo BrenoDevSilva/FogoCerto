@@ -1,0 +1,16 @@
+configuracao,grupo,n,acertos,acerto_%,alucinacao_%,erro_sem_recusa_%,json_valido_%,fonte_correta_%,recusa_correta_%,autorizou_queima_%,ms_por_pergunta
+sem_contexto,TOTAL,65,15/65,23.1,89.2,67.3,95.4,4.1,78.5,3.1,1009
+sem_contexto,"1. Lei, pergunta direta",20,4/20,20.0,95.0,75.0,95.0,5.0,100.0,0.0,1056
+sem_contexto,"2. Lei, linguagem do produtor",15,7/15,46.7,100.0,53.3,100.0,6.7,100.0,6.7,918
+sem_contexto,3. Risco do dia (Big Data),14,1/14,7.1,78.6,71.4,85.7,0.0,92.9,0.0,871
+sem_contexto,4. Fora da base ou parecer,16,3/16,18.8,81.2,nan,100.0,nan,18.8,6.2,1157
+rag,TOTAL,65,42/65,64.6,12.3,22.4,93.8,61.2,86.2,3.1,1966
+rag,"1. Lei, pergunta direta",20,13/20,65.0,5.0,15.0,85.0,55.0,95.0,0.0,2122
+rag,"2. Lei, linguagem do produtor",15,7/15,46.7,0.0,46.7,100.0,53.3,93.3,6.7,2044
+rag,3. Risco do dia (Big Data),14,13/14,92.9,0.0,7.1,100.0,78.6,100.0,7.1,1795
+rag,4. Fora da base ou parecer,16,9/16,56.2,43.8,nan,93.8,nan,56.2,0.0,1847
+agente,TOTAL,65,27/65,41.5,66.2,46.9,93.8,24.5,83.1,1.5,4734
+agente,"1. Lei, pergunta direta",20,2/20,10.0,85.0,75.0,85.0,5.0,100.0,0.0,4691
+agente,"2. Lei, linguagem do produtor",15,6/15,40.0,86.7,46.7,93.3,6.7,93.3,0.0,4575
+agente,3. Risco do dia (Big Data),14,12/14,85.7,14.3,7.1,100.0,71.4,92.9,0.0,6379
+agente,4. Fora da base ou parecer,16,7/16,43.8,68.8,nan,100.0,nan,43.8,6.2,3499

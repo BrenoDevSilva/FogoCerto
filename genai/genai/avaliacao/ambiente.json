@@ -1,0 +1,21 @@
+{
+ "data_execucao": "2026-11-13T21:56:25",
+ "conjunto": "teste",
+ "modelo": "Qwen/Qwen3-1.7B",
+ "embeddings": "intfloat/multilingual-e5-small",
+ "k": 3,
+ "limiar": 0.8601999878883362,
+ "nota_alta": 0.8879,
+ "temperatura": 0.0,
+ "gpu": "Tesla T4",
+ "python": "3.13.16",
+ "pacotes": {
+  "torch": "2.14.1+cu130",
+  "transformers": "5.22.1",
+  "sentence-transformers": "5.7.0",
+  "accelerate": "1.15.0"
+ },
+ "data_dos_dados_de_risco": "2026-11-03",
+ "n_trechos": 116,
+ "n_casos": 94
+}

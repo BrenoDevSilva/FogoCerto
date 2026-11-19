@@ -1,0 +1,23 @@
+{
+  "description": "Cenários demonstrativos usados pelo mockdata do Maker Lab.",
+  "scenarios": [
+    {
+      "label": "BAIXO",
+      "temperatureC": 27.0,
+      "humidityPct": 58.0,
+      "smokeDetected": false
+    },
+    {
+      "label": "MEDIO",
+      "temperatureC": 32.0,
+      "humidityPct": 38.0,
+      "smokeDetected": false
+    },
+    {
+      "label": "ALTO",
+      "temperatureC": 39.0,
+      "humidityPct": 24.0,
+      "smokeDetected": true
+    }
+  ]
+}

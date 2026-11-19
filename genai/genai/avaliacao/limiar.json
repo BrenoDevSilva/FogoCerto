@@ -1,0 +1,19 @@
+{
+  "limiar": 0.8601999878883362,
+  "buscador": "e5",
+  "regra": "o maior limiar que ainda deixa passar pelo menos 95% das perguntas que a base responde (medido no conjunto de ajuste). A busca é a primeira camada de recusa e não pode barrar o que a base sabe responder; as perguntas parecidas com o tema, mas fora da base, ficam para a segunda camada (o modelo lendo o contexto) e para a trava contra 'pode queimar'.",
+  "nota_alta": 0.8879,
+  "minimo_base_%": 95.0,
+  "no_ajuste": {
+    "limiar": 0.8601999878883362,
+    "base_respondida_%": 96.0,
+    "fora_recusada_%": 50.0,
+    "equilibrio_%": 73.0
+  },
+  "no_teste": {
+    "limiar": 0.8601999878883362,
+    "base_respondida_%": 92.3,
+    "fora_recusada_%": 81.8,
+    "equilibrio_%": 87.1
+  }
+}

@@ -21,7 +21,7 @@ FogoCerto avisa, a cada manhã, produtores rurais e a defesa civil se há risco 
 - Vídeo Maker Lab: [Assistir ao vídeo do carrinho](maker/evidencias/video-carrinho.mp4)
 - Vídeo RPA: [Robotic Process Automation - alerta diário de risco](https://youtu.be/4NxAmXulvdA)
 - Vídeo Visão Computacional: [Detecção de fumaça e fogo com YOLO11](https://youtu.be/IZauw6l9Onw)
-- Vídeo IA: _a definir_
+- Vídeo IA: [Demonstração IA](https://youtu.be/qxFoTCS2zl0?feature=shared)
 
 ## Como o projeto está organizado
 

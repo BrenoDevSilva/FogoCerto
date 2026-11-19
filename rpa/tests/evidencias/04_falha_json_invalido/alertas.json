@@ -1,0 +1,11 @@
+{
+  "atualizado_em": "2026-11-13T11:18:36-03:00",
+  "ultima_execucao": {
+    "id_execucao": "20261113T111836",
+    "status": "abortado_dado_invalido",
+    "fim": "2026-11-13T11:18:36-03:00",
+    "data_dado": null,
+    "contagens": {}
+  },
+  "alertas": []
+}

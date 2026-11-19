@@ -1,0 +1,6 @@
+[
+  {"id_ibge": 1500107, "nome": "Abaetetuba", "uf": "PA", "data": "2026-11-07", "nivel_risco": "medio", "pontos": 3,
+   "fatores": "sem chuva nos ultimos 3 dias; 4 focos ontem no municipio", "focos_ontem": 4},
+  {"id_ibge": 1502400, "nome": "Castanhal", "uf": "PA", "data": "2026-11-07", "nivel_risco": "baixo", "pontos": 1,
+   "fatores": "", "focos_ontem": 0}
+]

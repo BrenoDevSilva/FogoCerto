@@ -1,0 +1,15 @@
+{
+  "id_execucao": "20261113T111836",
+  "inicio": "2026-11-13T11:18:36-03:00",
+  "status": "abortado_dado_invalido",
+  "fonte": "risco_quebrado.json",
+  "data_referencia": "2026-11-08",
+  "data_dado": null,
+  "simulado": true,
+  "contagens": {},
+  "problemas_no_dado": [],
+  "erros": [
+    "dado inválido: JSON ilegível: Expecting ',' delimiter: line 1 column 68 (char 67)"
+  ],
+  "fim": "2026-11-13T11:18:36-03:00"
+}

@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2708" height="605" viewBox="-10 -10 2718 615" font-family="Segoe UI, Arial, sans-serif">
+<defs><marker id="seta" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#333"/></marker></defs>
+<rect x="-10" y="-10" width="2718" height="615" fill="#fff"/>
+<rect x="900.0" y="0.0" width="1340" height="535" rx="14" fill="#fbf7f2" stroke="#7a5a3a" stroke-width="1.5"/>
+<text font-size="13" text-anchor="start" font-weight="bold"><tspan x="914" y="25">Para cada município (repetição)</tspan></text>
+<line x1="1564.0" y1="517.0" x2="1564.0" y2="529.0" stroke="#333" stroke-width="2"/>
+<line x1="1570.0" y1="517.0" x2="1570.0" y2="529.0" stroke="#333" stroke-width="2"/>
+<line x1="1576.0" y1="517.0" x2="1576.0" y2="529.0" stroke="#333" stroke-width="2"/>
+<rect x="1445.0" y="25.0" width="730" height="470" rx="14" fill="#f3ede4" stroke="#7a5a3a" stroke-width="1.5"/>
+<text font-size="13" text-anchor="start" font-weight="bold"><tspan x="1459" y="50">Para cada assinante do município (repetição)</tspan></text>
+<line x1="1804.0" y1="477.0" x2="1804.0" y2="489.0" stroke="#333" stroke-width="2"/>
+<line x1="1810.0" y1="477.0" x2="1810.0" y2="489.0" stroke="#333" stroke-width="2"/>
+<line x1="1816.0" y1="477.0" x2="1816.0" y2="489.0" stroke="#333" stroke-width="2"/>
+<circle cx="40" cy="130" r="18.0" fill="#e7f5e9" stroke="#333" stroke-width="1.5"/>
+<circle cx="40" cy="130" r="12.0" fill="#fff" stroke="#333" stroke-width="1.2"/><path d="M40,122 L40,130 L46,133" stroke="#333" stroke-width="1.5" fill="none"/>
+<text font-size="11" text-anchor="middle" font-weight="normal"><tspan x="40" y="170">Todo dia, 13:00</tspan></text>
+<rect x="85.0" y="90.0" width="150" height="80" rx="10" fill="#fff" stroke="#333" stroke-width="1.5"/>
+<text font-size="12" text-anchor="middle" font-weight="normal"><tspan x="160" y="127">Ler risco_atual.json</tspan><tspan x="160" y="142">(até 3 tentativas)</tspan></text>
+<polygon points="300,105.0 325.0,130 300,155.0 275.0,130" fill="#fff8d6" stroke="#333" stroke-width="1.5"/>
+<path d="M291,121 L309,139 M309,121 L291,139" stroke="#333" stroke-width="2.5"/>
+<text font-size="11" text-anchor="middle" font-weight="normal"><tspan x="300" y="87">Leitura ok?</tspan></text>
+<rect x="345.0" y="90.0" width="150" height="80" rx="10" fill="#fff" stroke="#333" stroke-width="1.5"/>
+<text font-size="12" text-anchor="middle" font-weight="normal"><tspan x="420" y="127">Validar JSON e cada</tspan><tspan x="420" y="142">município</tspan></text>
+<polygon points="560,105.0 585.0,130 560,155.0 535.0,130" fill="#fff8d6" stroke="#333" stroke-width="1.5"/>
+<path d="M551,121 L569,139 M569,121 L551,139" stroke="#333" stroke-width="2.5"/>
+<text font-size="11" text-anchor="middle" font-weight="normal"><tspan x="560" y="87">Arquivo válido?</tspan></text>
+<rect x="605.0" y="90.0" width="150" height="80" rx="10" fill="#fff" stroke="#333" stroke-width="1.5"/>
+<text font-size="12" text-anchor="middle" font-weight="normal"><tspan x="680" y="134">Carregar assinantes</tspan></text>
+<polygon points="820,105.0 845.0,130 820,155.0 795.0,130" fill="#fff8d6" stroke="#333" stroke-width="1.5"/>
+<path d="M811,121 L829,139 M829,121 L811,139" stroke="#333" stroke-width="2.5"/>
+<text font-size="11" text-anchor="middle" font-weight="normal"><tspan x="820" y="87">Assinantes ok?</tspan></text>
+<rect x="485.0" y="270.0" width="150" height="80" rx="10" fill="#fff" stroke="#333" stroke-width="1.5"/>
+<text font-size="12" text-anchor="middle" font-weight="normal"><tspan x="560" y="299">Registrar erro no log</tspan><tspan x="560" y="314">e no resumo (sem</tspan><tspan x="560" y="329">enviar)</tspan></text>
+<circle cx="560" cy="420" r="18.0" fill="#fde4e1" stroke="#333" stroke-width="4"/>
+<path d="M553,427 L557,413 L562,422 L567,413" stroke="#333" stroke-width="2" fill="none"/>
+<text font-size="11" text-anchor="middle" font-weight="normal"><tspan x="560" y="460">Abortado sem alerta</tspan></text>
+<circle cx="940" cy="130" r="18.0" fill="#e7f5e9" stroke="#333" stroke-width="1.5"/>
+<polygon points="1020,105.0 1045.0,130 1020,155.0 995.0,130" fill="#fff8d6" stroke="#333" stroke-width="1.5"/>
+<path d="M1011,121 L1029,139 M1029,121 L1011,139" stroke="#333" stroke-width="2.5"/>
+<text font-size="11" text-anchor="middle" font-weight="normal"><tspan x="1020" y="80">Dado com mais de 2</tspan><tspan x="1020" y="94">dias?</tspan></text>
+<polygon points="1190,105.0 1215.0,130 1190,155.0 1165.0,130" fill="#fff8d6" stroke="#333" stroke-width="1.5"/>
+<path d="M1181,121 L1199,139 M1199,121 L1181,139" stroke="#333" stroke-width="2.5"/>
+<text font-size="11" text-anchor="middle" font-weight="normal"><tspan x="1190" y="80">Risco alto, ou médio</tspan><tspan x="1190" y="94">com 100+ focos?</tspan></text>
+<polygon points="1360,105.0 1385.0,130 1360,155.0 1335.0,130" fill="#fff8d6" stroke="#333" stroke-width="1.5"/>
+<path d="M1351,121 L1369,139 M1369,121 L1351,139" stroke="#333" stroke-width="2.5"/>
+<text font-size="11" text-anchor="middle" font-weight="normal"><tspan x="1360" y="87">Tem assinante?</tspan></text>
+<rect x="945.0" y="270.0" width="150" height="80" rx="10" fill="#fff" stroke="#333" stroke-width="1.5"/>
+<text font-size="12" text-anchor="middle" font-weight="normal"><tspan x="1020" y="307">Registrar &#x27;retido:</tspan><tspan x="1020" y="322">dado atrasado&#x27;</tspan></text>
+<rect x="1115.0" y="270.0" width="150" height="80" rx="10" fill="#fff" stroke="#333" stroke-width="1.5"/>
+<text font-size="12" text-anchor="middle" font-weight="normal"><tspan x="1190" y="307">Registrar &#x27;sem</tspan><tspan x="1190" y="322">alerta&#x27;</tspan></text>
+<rect x="1285.0" y="270.0" width="150" height="80" rx="10" fill="#fff" stroke="#333" stroke-width="1.5"/>
+<text font-size="12" text-anchor="middle" font-weight="normal"><tspan x="1360" y="307">Registrar &#x27;sem</tspan><tspan x="1360" y="322">assinante&#x27;</tspan></text>
+<circle cx="1020" cy="420" r="18.0" fill="#fff" stroke="#333" stroke-width="4"/>
+<circle cx="1190" cy="420" r="18.0" fill="#fff" stroke="#333" stroke-width="4"/>
+<circle cx="1360" cy="420" r="18.0" fill="#fff" stroke="#333" stroke-width="4"/>
+<circle cx="1480" cy="130" r="18.0" fill="#e7f5e9" stroke="#333" stroke-width="1.5"/>
+<polygon points="1555,105.0 1580.0,130 1555,155.0 1530.0,130" fill="#fff8d6" stroke="#333" stroke-width="1.5"/>
+<path d="M1546,121 L1564,139 M1564,121 L1546,139" stroke="#333" stroke-width="2.5"/>
+<text font-size="11" text-anchor="middle" font-weight="normal"><tspan x="1555" y="80">Já enviado (município</tspan><tspan x="1555" y="94">+ data)?</tspan></text>
+<rect x="1620.0" y="90.0" width="150" height="80" rx="10" fill="#fff" stroke="#333" stroke-width="1.5"/>
+<text font-size="12" text-anchor="middle" font-weight="normal"><tspan x="1695" y="119">Montar mensagem e</tspan><tspan x="1695" y="134">enviar (Telegram ou</tspan><tspan x="1695" y="149">e-mail)</tspan></text>
+<polygon points="1845,105.0 1870.0,130 1845,155.0 1820.0,130" fill="#fff8d6" stroke="#333" stroke-width="1.5"/>
+<path d="M1836,121 L1854,139 M1854,121 L1836,139" stroke="#333" stroke-width="2.5"/>
+<text font-size="11" text-anchor="middle" font-weight="normal"><tspan x="1845" y="87">Enviou?</tspan></text>
+<rect x="1910.0" y="90.0" width="150" height="80" rx="10" fill="#fff" stroke="#333" stroke-width="1.5"/>
+<text font-size="12" text-anchor="middle" font-weight="normal"><tspan x="1985" y="127">Marcar como enviado e</tspan><tspan x="1985" y="142">registrar no log</tspan></text>
+<circle cx="2125" cy="130" r="18.0" fill="#fff" stroke="#333" stroke-width="4"/>
+<rect x="1480.0" y="270.0" width="150" height="80" rx="10" fill="#fff" stroke="#333" stroke-width="1.5"/>
+<text font-size="12" text-anchor="middle" font-weight="normal"><tspan x="1555" y="307">Registrar &#x27;duplicado&#x27;</tspan><tspan x="1555" y="322">(não reenvia)</tspan></text>
+<rect x="1770.0" y="270.0" width="150" height="80" rx="10" fill="#fff" stroke="#333" stroke-width="1.5"/>
+<text font-size="12" text-anchor="middle" font-weight="normal"><tspan x="1845" y="299">Registrar falha</tspan><tspan x="1845" y="314">(segue para o</tspan><tspan x="1845" y="329">próximo)</tspan></text>
+<circle cx="1555" cy="420" r="18.0" fill="#fff" stroke="#333" stroke-width="4"/>
+<circle cx="1845" cy="420" r="18.0" fill="#fff" stroke="#333" stroke-width="4"/>
+<circle cx="2205" cy="130" r="18.0" fill="#fff" stroke="#333" stroke-width="4"/>
+<rect x="2275.0" y="90.0" width="150" height="80" rx="10" fill="#fff" stroke="#333" stroke-width="1.5"/>
+<text font-size="12" text-anchor="middle" font-weight="normal"><tspan x="2350" y="127">Publicar alertas.json</tspan><tspan x="2350" y="142">para o site (MVP)</tspan></text>
+<rect x="2455.0" y="90.0" width="150" height="80" rx="10" fill="#fff" stroke="#333" stroke-width="1.5"/>
+<text font-size="12" text-anchor="middle" font-weight="normal"><tspan x="2530" y="127">Gravar resumo da</tspan><tspan x="2530" y="142">execução (auditoria)</tspan></text>
+<circle cx="2650" cy="130" r="18.0" fill="#fff" stroke="#333" stroke-width="4"/>
+<text font-size="11" text-anchor="middle" font-weight="normal"><tspan x="2650" y="170">Concluído</tspan></text>
+<polyline points="58,130 85,130" fill="none" stroke="#333" stroke-width="1.5" marker-end="url(#seta)"/>
+<polyline points="235,130 275,130" fill="none" stroke="#333" stroke-width="1.5" marker-end="url(#seta)"/>
+<polyline points="325,130 345,130" fill="none" stroke="#333" stroke-width="1.5" marker-end="url(#seta)"/>
+<text font-size="10" text-anchor="start" font-weight="bold"><tspan x="328" y="124">sim</tspan></text>
+<polyline points="300,155 300,310 485,310" fill="none" stroke="#333" stroke-width="1.5" marker-end="url(#seta)"/>
+<text font-size="11" text-anchor="start" font-weight="bold"><tspan x="306" y="173">não</tspan></text>
+<polyline points="495,130 535,130" fill="none" stroke="#333" stroke-width="1.5" marker-end="url(#seta)"/>
+<polyline points="585,130 605,130" fill="none" stroke="#333" stroke-width="1.5" marker-end="url(#seta)"/>
+<text font-size="10" text-anchor="start" font-weight="bold"><tspan x="588" y="124">sim</tspan></text>
+<polyline points="560,155 560,270" fill="none" stroke="#333" stroke-width="1.5" marker-end="url(#seta)"/>
+<text font-size="11" text-anchor="start" font-weight="bold"><tspan x="566" y="173">não</tspan></text>
+<polyline points="755,130 795,130" fill="none" stroke="#333" stroke-width="1.5" marker-end="url(#seta)"/>
+<polyline points="845,130 900,130" fill="none" stroke="#333" stroke-width="1.5" marker-end="url(#seta)"/>
+<text font-size="10" text-anchor="start" font-weight="bold"><tspan x="848" y="124">sim</tspan></text>
+<polyline points="820,155 820,310 635,310" fill="none" stroke="#333" stroke-width="1.5" marker-end="url(#seta)"/>
+<text font-size="11" text-anchor="start" font-weight="bold"><tspan x="826" y="173">não</tspan></text>
+<polyline points="560,350 560,402" fill="none" stroke="#333" stroke-width="1.5" marker-end="url(#seta)"/>
+<polyline points="958,130 995,130" fill="none" stroke="#333" stroke-width="1.5" marker-end="url(#seta)"/>
+<polyline points="1020,155 1020,270" fill="none" stroke="#333" stroke-width="1.5" marker-end="url(#seta)"/>
+<text font-size="11" text-anchor="start" font-weight="bold"><tspan x="1026" y="173">sim</tspan></text>
+<polyline points="1045,130 1165,130" fill="none" stroke="#333" stroke-width="1.5" marker-end="url(#seta)"/>
+<text font-size="10" text-anchor="start" font-weight="bold"><tspan x="1048" y="124">não</tspan></text>
+<polyline points="1190,155 1190,270" fill="none" stroke="#333" stroke-width="1.5" marker-end="url(#seta)"/>
+<text font-size="11" text-anchor="start" font-weight="bold"><tspan x="1196" y="173">não</tspan></text>
+<polyline points="1215,130 1335,130" fill="none" stroke="#333" stroke-width="1.5" marker-end="url(#seta)"/>
+<text font-size="10" text-anchor="start" font-weight="bold"><tspan x="1218" y="124">sim</tspan></text>
+<polyline points="1360,155 1360,270" fill="none" stroke="#333" stroke-width="1.5" marker-end="url(#seta)"/>
+<text font-size="11" text-anchor="start" font-weight="bold"><tspan x="1366" y="173">não</tspan></text>
+<polyline points="1385,130 1445,130" fill="none" stroke="#333" stroke-width="1.5" marker-end="url(#seta)"/>
+<text font-size="10" text-anchor="start" font-weight="bold"><tspan x="1388" y="124">sim</tspan></text>
+<polyline points="1020,350 1020,402" fill="none" stroke="#333" stroke-width="1.5" marker-end="url(#seta)"/>
+<polyline points="1190,350 1190,402" fill="none" stroke="#333" stroke-width="1.5" marker-end="url(#seta)"/>
+<polyline points="1360,350 1360,402" fill="none" stroke="#333" stroke-width="1.5" marker-end="url(#seta)"/>
+<polyline points="2175,130 2187,130" fill="none" stroke="#333" stroke-width="1.5" marker-end="url(#seta)"/>
+<polyline points="1498,130 1530,130" fill="none" stroke="#333" stroke-width="1.5" marker-end="url(#seta)"/>
+<polyline points="1555,155 1555,270" fill="none" stroke="#333" stroke-width="1.5" marker-end="url(#seta)"/>
+<text font-size="11" text-anchor="start" font-weight="bold"><tspan x="1561" y="173">sim</tspan></text>
+<polyline points="1580,130 1620,130" fill="none" stroke="#333" stroke-width="1.5" marker-end="url(#seta)"/>
+<text font-size="10" text-anchor="start" font-weight="bold"><tspan x="1583" y="124">não</tspan></text>
+<polyline points="1770,130 1820,130" fill="none" stroke="#333" stroke-width="1.5" marker-end="url(#seta)"/>
+<polyline points="1870,130 1910,130" fill="none" stroke="#333" stroke-width="1.5" marker-end="url(#seta)"/>
+<text font-size="10" text-anchor="start" font-weight="bold"><tspan x="1873" y="124">sim</tspan></text>
+<polyline points="1845,155 1845,270" fill="none" stroke="#333" stroke-width="1.5" marker-end="url(#seta)"/>
+<text font-size="11" text-anchor="start" font-weight="bold"><tspan x="1851" y="173">não</tspan></text>
+<polyline points="2060,130 2107,130" fill="none" stroke="#333" stroke-width="1.5" marker-end="url(#seta)"/>
+<polyline points="1555,350 1555,402" fill="none" stroke="#333" stroke-width="1.5" marker-end="url(#seta)"/>
+<polyline points="1845,350 1845,402" fill="none" stroke="#333" stroke-width="1.5" marker-end="url(#seta)"/>
+<polyline points="2240,130 2275,130" fill="none" stroke="#333" stroke-width="1.5" marker-end="url(#seta)"/>
+<polyline points="2425,130 2455,130" fill="none" stroke="#333" stroke-width="1.5" marker-end="url(#seta)"/>
+<polyline points="2605,130 2632,130" fill="none" stroke="#333" stroke-width="1.5" marker-end="url(#seta)"/>
+<text font-size="12" text-anchor="start" font-weight="normal"><tspan x="10" y="579">FogoCerto · RPA · alerta diário de risco de fogo (BPMN 2.0, fonte: docs/fluxo_rpa.bpmn)</tspan></text>
+</svg>

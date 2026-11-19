@@ -1,0 +1,24 @@
+{
+  "id_execucao": "20261113T111836",
+  "inicio": "2026-11-13T11:18:36-03:00",
+  "status": "concluido",
+  "fonte": "risco_com_problemas.json",
+  "data_referencia": "2026-11-08",
+  "data_dado": "2026-11-07",
+  "simulado": true,
+  "contagens": {
+    "municipios_lidos": 1,
+    "itens_invalidos": 5,
+    "municipios_com_alerta": 1,
+    "enviados": 2
+  },
+  "problemas_no_dado": [
+    "item 1: município 1504802 repetido no arquivo (mantido o primeiro)",
+    "item 2: município 1500503: nivel_risco desconhecido 'ALTISSIMO'",
+    "item 3: município 1503606: data futura 2026-12-25",
+    "item 4: id_ibge ausente ou não numérico",
+    "item 5: município 1502400: focos_ontem inválido -3"
+  ],
+  "erros": [],
+  "fim": "2026-11-13T11:18:36-03:00"
+}

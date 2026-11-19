@@ -1,0 +1,20 @@
+2026-11-13 11:14:18 | INFO    | inicio execucao=20261113T111418 fonte=risco_atual.json hoje=2026-11-08 simulado=True
+2026-11-13 11:14:18 | INFO    | assinantes carregados: 6 em 5 municípios
+2026-11-13 11:14:18 | INFO    | municipio=Oriximiná id=1505304 nivel=alto focos=190 data=2026-11-07 decisao=risco_alto assinante=9775749667 canal=telegram resultado=enviado
+2026-11-13 11:14:18 | INFO    | municipio=Almeirim id=1500503 nivel=alto focos=366 data=2026-11-07 decisao=risco_alto assinante=400d35bde9 canal=telegram resultado=enviado
+2026-11-13 11:14:18 | INFO    | municipio=Almeirim id=1500503 nivel=alto focos=366 data=2026-11-07 decisao=risco_alto assinante=ae9163877f canal=email resultado=enviado
+2026-11-13 11:14:18 | INFO    | municipio=Monte Alegre id=1504802 nivel=alto focos=92 data=2026-11-07 decisao=risco_alto assinante=deeb06e086 canal=telegram resultado=enviado
+2026-11-13 11:14:18 | INFO    | municipio=Prainha id=1506005 nivel=medio focos=287 data=2026-11-07 decisao=risco_medio_muitos_focos resultado=sem_assinante
+2026-11-13 11:14:18 | INFO    | municipio=Santarém id=1506807 nivel=medio focos=105 data=2026-11-07 decisao=risco_medio_muitos_focos resultado=sem_assinante
+2026-11-13 11:14:18 | INFO    | municipio=Pacajá id=1505486 nivel=medio focos=538 data=2026-11-07 decisao=risco_medio_muitos_focos resultado=sem_assinante
+2026-11-13 11:14:18 | INFO    | municipio=Portel id=1505809 nivel=medio focos=822 data=2026-11-07 decisao=risco_medio_muitos_focos assinante=6ae8b12428 canal=telegram resultado=enviado
+2026-11-13 11:14:18 | INFO    | municipio=Uruará id=1508159 nivel=medio focos=536 data=2026-11-07 decisao=risco_medio_muitos_focos resultado=sem_assinante
+2026-11-13 11:14:18 | INFO    | municipio=Itupiranga id=1503705 nivel=baixo focos=66 data=2026-11-07 decisao=sem_alerta_risco_baixo
+2026-11-13 11:14:18 | INFO    | municipio=Jacundá id=1503804 nivel=baixo focos=13 data=2026-11-07 decisao=sem_alerta_risco_baixo
+2026-11-13 11:14:18 | INFO    | municipio=Soure id=1507904 nivel=baixo focos=10 data=2026-11-07 decisao=sem_alerta_risco_baixo
+2026-11-13 11:14:18 | INFO    | municipio=Tucuruí id=1508100 nivel=baixo focos=30 data=2026-11-07 decisao=sem_alerta_risco_baixo
+2026-11-13 11:14:18 | INFO    | municipio=Castanhal id=1502400 nivel=baixo focos=11 data=2026-11-07 decisao=sem_alerta_risco_baixo
+2026-11-13 11:14:18 | INFO    | municipio=Itaituba id=1503606 nivel=baixo focos=17 data=2026-11-07 decisao=sem_alerta_risco_baixo
+2026-11-13 11:14:18 | INFO    | municipio=Santana do Araguaia id=1506708 nivel=baixo focos=5 data=2026-11-07 decisao=sem_alerta_risco_baixo
+2026-11-13 11:14:18 | INFO    | site atualizado: alertas.json (4 alertas novos)
+2026-11-13 11:14:18 | INFO    | fim status=concluido contagens={"municipios_lidos": 15, "itens_invalidos": 0, "municipios_com_alerta": 8, "enviados": 5, "sem_assinante": 4, "sem_alerta": 7} log=rpa_2026-11-13.log

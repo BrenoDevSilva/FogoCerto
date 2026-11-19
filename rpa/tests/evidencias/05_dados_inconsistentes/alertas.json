@@ -1,0 +1,29 @@
+{
+  "atualizado_em": "2026-11-13T11:18:36-03:00",
+  "ultima_execucao": {
+    "id_execucao": "20261113T111836",
+    "status": "concluido",
+    "fim": "2026-11-13T11:18:36-03:00",
+    "data_dado": "2026-11-07",
+    "contagens": {
+      "municipios_lidos": 1,
+      "itens_invalidos": 5,
+      "municipios_com_alerta": 1,
+      "enviados": 2
+    }
+  },
+  "alertas": [
+    {
+      "id_ibge": 1504802,
+      "nome": "Monte Alegre",
+      "uf": "PA",
+      "data_dado": "2026-11-07",
+      "nivel_risco": "alto",
+      "motivo": "risco_alto",
+      "enviado_em": "2026-11-13T11:18:36-03:00",
+      "assinantes_avisados": 2,
+      "falhas": 0,
+      "simulado": true
+    }
+  ]
+}

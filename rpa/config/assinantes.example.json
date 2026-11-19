@@ -1,0 +1,8 @@
+[
+  {"municipio_id": 1504802, "canal": "telegram", "destino": "111111111"},
+  {"municipio_id": 1504802, "canal": "email", "destino": "brigada.teste@example.com"},
+  {"municipio_id": 1505304, "canal": "telegram", "destino": "222222222"},
+  {"municipio_id": 1500107, "canal": "telegram", "destino": "333333333"},
+  {"municipio_id": 1502400, "canal": "telegram", "destino": "444444444"},
+  {"municipio_id": 1504802, "canal": "whatsapp", "destino": "555555555"}
+]

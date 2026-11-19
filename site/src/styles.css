@@ -584,6 +584,18 @@ a {
   font-size: 0.9375rem;
   color: var(--tinta-2);
 }
+.cartao__alerta {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--tinta-2);
+}
+.cartao__alerta svg {
+  flex: none;
+  margin-top: 2px;
+}
 
 /* ---------- Medidor ---------- */
 
@@ -1206,7 +1218,8 @@ a {
   }
   .cartao__topo,
   .cartao > section:last-of-type,
-  .cartao__atualizado {
+  .cartao__atualizado,
+  .cartao__alerta {
     grid-column: 1 / -1;
   }
   .cartao__nivel {

@@ -1,0 +1,15 @@
+{
+  "atualizado_em": "2026-11-13T11:18:35-03:00",
+  "ultima_execucao": {
+    "id_execucao": "20261113T111835",
+    "status": "concluido",
+    "fim": "2026-11-13T11:18:35-03:00",
+    "data_dado": "2026-11-07",
+    "contagens": {
+      "municipios_lidos": 2,
+      "itens_invalidos": 0,
+      "sem_alerta": 2
+    }
+  },
+  "alertas": []
+}

@@ -1,0 +1,79 @@
+[
+  {
+    "cenario": "01_sucesso_risco_alto",
+    "descricao": "risco alto e médio com muitos focos: alertas enviados",
+    "codigo_saida": 0,
+    "status": "concluido",
+    "contagens": {
+      "municipios_lidos": 4,
+      "itens_invalidos": 0,
+      "municipios_com_alerta": 2,
+      "enviados": 3,
+      "sem_alerta": 2
+    }
+  },
+  {
+    "cenario": "02_decisao_sem_alerta",
+    "descricao": "só risco baixo/médio sem focos: nenhum alerta",
+    "codigo_saida": 0,
+    "status": "concluido",
+    "contagens": {
+      "municipios_lidos": 2,
+      "itens_invalidos": 0,
+      "sem_alerta": 2
+    }
+  },
+  {
+    "cenario": "03_falha_fonte_ausente",
+    "descricao": "arquivo de risco ausente: 3 tentativas e aborta sem enviar",
+    "codigo_saida": 2,
+    "status": "abortado_fonte_indisponivel",
+    "contagens": {}
+  },
+  {
+    "cenario": "04_falha_json_invalido",
+    "descricao": "JSON quebrado: aborta sem enviar",
+    "codigo_saida": 2,
+    "status": "abortado_dado_invalido",
+    "contagens": {}
+  },
+  {
+    "cenario": "05_dados_inconsistentes",
+    "descricao": "itens repetidos/inválidos ignorados, o resto segue",
+    "codigo_saida": 0,
+    "status": "concluido",
+    "contagens": {
+      "municipios_lidos": 1,
+      "itens_invalidos": 5,
+      "municipios_com_alerta": 1,
+      "enviados": 2
+    }
+  },
+  {
+    "cenario": "06_falha_de_envio",
+    "descricao": "um envio falha, os outros seguem",
+    "codigo_saida": 1,
+    "status": "concluido_com_falhas",
+    "contagens": {
+      "municipios_lidos": 4,
+      "itens_invalidos": 0,
+      "municipios_com_alerta": 2,
+      "falhas_envio": 1,
+      "enviados": 2,
+      "sem_alerta": 2
+    }
+  },
+  {
+    "cenario": "07_duplicado_nao_reenvia",
+    "descricao": "segunda execução no mesmo dia não reenvia",
+    "codigo_saida": 0,
+    "status": "concluido",
+    "contagens": {
+      "municipios_lidos": 4,
+      "itens_invalidos": 0,
+      "municipios_com_alerta": 2,
+      "duplicados_nao_reenviados": 3,
+      "sem_alerta": 2
+    }
+  }
+]

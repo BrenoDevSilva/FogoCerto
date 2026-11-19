@@ -1,0 +1,13 @@
+[
+  {"id_ibge": 1504802, "nome": "Monte Alegre", "uf": "PA", "data": "2026-11-07", "nivel_risco": "alto", "pontos": 7,
+   "fatores": "umidade minima de 39%; vento de ate 22 km/h; sem chuva nos ultimos 3 dias; calor de 36 C; 349 focos ontem no municipio",
+   "focos_ontem": 349, "umidade_min": 39.0, "vento_max": 22.0, "temp_max": 35.8, "chuva_3d": 0.4, "atualizado_em": "2026-11-08T10:35:00"},
+  {"id_ibge": 1505304, "nome": "Oriximiná", "uf": "PA", "data": "2026-11-07", "nivel_risco": "medio", "pontos": 4,
+   "fatores": "sem chuva nos ultimos 3 dias; 120 focos ontem no municipio",
+   "focos_ontem": 120, "umidade_min": 48.0, "vento_max": 12.0, "temp_max": 33.0, "chuva_3d": 0.0, "atualizado_em": "2026-11-08T10:35:00"},
+  {"id_ibge": 1500107, "nome": "Abaetetuba", "uf": "PA", "data": "2026-11-07", "nivel_risco": "medio", "pontos": 3,
+   "fatores": "sem chuva nos ultimos 3 dias; 4 focos ontem no municipio",
+   "focos_ontem": 4, "umidade_min": 52.0, "vento_max": 10.0, "temp_max": 33.0, "chuva_3d": 0.2, "atualizado_em": "2026-11-08T10:35:00"},
+  {"id_ibge": 1502400, "nome": "Castanhal", "uf": "PA", "data": "2026-11-07", "nivel_risco": "baixo", "pontos": 1,
+   "fatores": "", "focos_ontem": 0, "umidade_min": 60.0, "vento_max": 8.0, "temp_max": 31.0, "chuva_3d": 12.0, "atualizado_em": "2026-11-08T10:35:00"}
+]

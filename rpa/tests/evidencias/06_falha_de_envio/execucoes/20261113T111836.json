@@ -1,0 +1,22 @@
+{
+  "id_execucao": "20261113T111836",
+  "inicio": "2026-11-13T11:18:36-03:00",
+  "status": "concluido_com_falhas",
+  "fonte": "risco_valido.json",
+  "data_referencia": "2026-11-08",
+  "data_dado": "2026-11-07",
+  "simulado": true,
+  "contagens": {
+    "municipios_lidos": 4,
+    "itens_invalidos": 0,
+    "municipios_com_alerta": 2,
+    "falhas_envio": 1,
+    "enviados": 2,
+    "sem_alerta": 2
+  },
+  "problemas_no_dado": [],
+  "erros": [
+    "envio 1504802/f82ffd3121: falha simulada"
+  ],
+  "fim": "2026-11-13T11:18:36-03:00"
+}

@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="fogocerto_rpa" targetNamespace="https://github.com/BrenoDevSilva/FogoCerto" exporter="gerar_bpmn.py">
+  <bpmn:process id="alerta_diario" name="FogoCerto - alerta diário de risco de fogo" isExecutable="false">
+    <bpmn:startEvent id="inicio" name="Todo dia, 13:00">
+      <bpmn:outgoing>f_inicio_ler</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="inicio_timer"><bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/2026-11-14T13:00:00-03:00/P1D</bpmn:timeCycle></bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:serviceTask id="ler" name="Ler risco_atual.json (até 3 tentativas)">
+      <bpmn:incoming>f_inicio_ler</bpmn:incoming>
+      <bpmn:outgoing>f_ler_g_leu</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="g_leu" name="Leitura ok?">
+      <bpmn:incoming>f_ler_g_leu</bpmn:incoming>
+      <bpmn:outgoing>f_g_leu_validar</bpmn:outgoing>
+      <bpmn:outgoing>f_g_leu_erro</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="validar" name="Validar JSON e cada município">
+      <bpmn:incoming>f_g_leu_validar</bpmn:incoming>
+      <bpmn:outgoing>f_validar_g_valido</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="g_valido" name="Arquivo válido?">
+      <bpmn:incoming>f_validar_g_valido</bpmn:incoming>
+      <bpmn:outgoing>f_g_valido_assin</bpmn:outgoing>
+      <bpmn:outgoing>f_g_valido_erro</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="assin" name="Carregar assinantes">
+      <bpmn:incoming>f_g_valido_assin</bpmn:incoming>
+      <bpmn:outgoing>f_assin_g_assin</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="g_assin" name="Assinantes ok?">
+      <bpmn:incoming>f_assin_g_assin</bpmn:incoming>
+      <bpmn:outgoing>f_g_assin_mun</bpmn:outgoing>
+      <bpmn:outgoing>f_g_assin_erro</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="erro" name="Registrar erro no log e no resumo (sem enviar)">
+      <bpmn:incoming>f_g_leu_erro</bpmn:incoming>
+      <bpmn:incoming>f_g_valido_erro</bpmn:incoming>
+      <bpmn:incoming>f_g_assin_erro</bpmn:incoming>
+      <bpmn:outgoing>f_erro_fim_erro</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="fim_erro" name="Abortado sem alerta">
+      <bpmn:incoming>f_erro_fim_erro</bpmn:incoming>
+      <bpmn:errorEventDefinition id="fim_erro_def" />
+    </bpmn:endEvent>
+    <bpmn:subProcess id="mun" name="Para cada município (repetição)">
+      <bpmn:incoming>f_g_assin_mun</bpmn:incoming>
+      <bpmn:outgoing>f_mun_publicar</bpmn:outgoing>
+      <bpmn:multiInstanceLoopCharacteristics isSequential="true" />
+      <bpmn:startEvent id="m_ini" name="">
+        <bpmn:outgoing>f_m_ini_g_atraso</bpmn:outgoing>
+      </bpmn:startEvent>
+      <bpmn:exclusiveGateway id="g_atraso" name="Dado com mais de 2 dias?">
+        <bpmn:incoming>f_m_ini_g_atraso</bpmn:incoming>
+        <bpmn:outgoing>f_g_atraso_retido</bpmn:outgoing>
+        <bpmn:outgoing>f_g_atraso_g_regra</bpmn:outgoing>
+      </bpmn:exclusiveGateway>
+      <bpmn:exclusiveGateway id="g_regra" name="Risco alto, ou médio com 100+ focos?">
+        <bpmn:incoming>f_g_atraso_g_regra</bpmn:incoming>
+        <bpmn:outgoing>f_g_regra_sem_alerta</bpmn:outgoing>
+        <bpmn:outgoing>f_g_regra_g_tem</bpmn:outgoing>
+      </bpmn:exclusiveGateway>
+      <bpmn:exclusiveGateway id="g_tem" name="Tem assinante?">
+        <bpmn:incoming>f_g_regra_g_tem</bpmn:incoming>
+        <bpmn:outgoing>f_g_tem_sem_assin</bpmn:outgoing>
+        <bpmn:outgoing>f_g_tem_ass</bpmn:outgoing>
+      </bpmn:exclusiveGateway>
+      <bpmn:serviceTask id="retido" name="Registrar &#x27;retido: dado atrasado&#x27;">
+        <bpmn:incoming>f_g_atraso_retido</bpmn:incoming>
+        <bpmn:outgoing>f_retido_m_fim1</bpmn:outgoing>
+      </bpmn:serviceTask>
+      <bpmn:serviceTask id="sem_alerta" name="Registrar &#x27;sem alerta&#x27;">
+        <bpmn:incoming>f_g_regra_sem_alerta</bpmn:incoming>
+        <bpmn:outgoing>f_sem_alerta_m_fim2</bpmn:outgoing>
+      </bpmn:serviceTask>
+      <bpmn:serviceTask id="sem_assin" name="Registrar &#x27;sem assinante&#x27;">
+        <bpmn:incoming>f_g_tem_sem_assin</bpmn:incoming>
+        <bpmn:outgoing>f_sem_assin_m_fim3</bpmn:outgoing>
+      </bpmn:serviceTask>
+      <bpmn:endEvent id="m_fim1" name="">
+        <bpmn:incoming>f_retido_m_fim1</bpmn:incoming>
+      </bpmn:endEvent>
+      <bpmn:endEvent id="m_fim2" name="">
+        <bpmn:incoming>f_sem_alerta_m_fim2</bpmn:incoming>
+      </bpmn:endEvent>
+      <bpmn:endEvent id="m_fim3" name="">
+        <bpmn:incoming>f_sem_assin_m_fim3</bpmn:incoming>
+      </bpmn:endEvent>
+      <bpmn:subProcess id="ass" name="Para cada assinante do município (repetição)">
+        <bpmn:incoming>f_g_tem_ass</bpmn:incoming>
+        <bpmn:outgoing>f_ass_m_fim</bpmn:outgoing>
+        <bpmn:multiInstanceLoopCharacteristics isSequential="true" />
+        <bpmn:startEvent id="a_ini" name="">
+          <bpmn:outgoing>f_a_ini_g_dup</bpmn:outgoing>
+        </bpmn:startEvent>
+        <bpmn:exclusiveGateway id="g_dup" name="Já enviado (município + data)?">
+          <bpmn:incoming>f_a_ini_g_dup</bpmn:incoming>
+          <bpmn:outgoing>f_g_dup_dup</bpmn:outgoing>
+          <bpmn:outgoing>f_g_dup_enviar</bpmn:outgoing>
+        </bpmn:exclusiveGateway>
+        <bpmn:serviceTask id="enviar" name="Montar mensagem e enviar (Telegram ou e-mail)">
+          <bpmn:incoming>f_g_dup_enviar</bpmn:incoming>
+          <bpmn:outgoing>f_enviar_g_ok</bpmn:outgoing>
+        </bpmn:serviceTask>
+        <bpmn:exclusiveGateway id="g_ok" name="Enviou?">
+          <bpmn:incoming>f_enviar_g_ok</bpmn:incoming>
+          <bpmn:outgoing>f_g_ok_marcar</bpmn:outgoing>
+          <bpmn:outgoing>f_g_ok_falha_env</bpmn:outgoing>
+        </bpmn:exclusiveGateway>
+        <bpmn:serviceTask id="marcar" name="Marcar como enviado e registrar no log">
+          <bpmn:incoming>f_g_ok_marcar</bpmn:incoming>
+          <bpmn:outgoing>f_marcar_a_fim</bpmn:outgoing>
+        </bpmn:serviceTask>
+        <bpmn:endEvent id="a_fim" name="">
+          <bpmn:incoming>f_marcar_a_fim</bpmn:incoming>
+        </bpmn:endEvent>
+        <bpmn:serviceTask id="dup" name="Registrar &#x27;duplicado&#x27; (não reenvia)">
+          <bpmn:incoming>f_g_dup_dup</bpmn:incoming>
+          <bpmn:outgoing>f_dup_a_fim2</bpmn:outgoing>
+        </bpmn:serviceTask>
+        <bpmn:serviceTask id="falha_env" name="Registrar falha (segue para o próximo)">
+          <bpmn:incoming>f_g_ok_falha_env</bpmn:incoming>
+          <bpmn:outgoing>f_falha_env_a_fim3</bpmn:outgoing>
+        </bpmn:serviceTask>
+        <bpmn:endEvent id="a_fim2" name="">
+          <bpmn:incoming>f_dup_a_fim2</bpmn:incoming>
+        </bpmn:endEvent>
+        <bpmn:endEvent id="a_fim3" name="">
+          <bpmn:incoming>f_falha_env_a_fim3</bpmn:incoming>
+        </bpmn:endEvent>
+        <bpmn:sequenceFlow id="f_a_ini_g_dup" name="" sourceRef="a_ini" targetRef="g_dup" />
+        <bpmn:sequenceFlow id="f_g_dup_dup" name="sim" sourceRef="g_dup" targetRef="dup" />
+        <bpmn:sequenceFlow id="f_g_dup_enviar" name="não" sourceRef="g_dup" targetRef="enviar" />
+        <bpmn:sequenceFlow id="f_enviar_g_ok" name="" sourceRef="enviar" targetRef="g_ok" />
+        <bpmn:sequenceFlow id="f_g_ok_marcar" name="sim" sourceRef="g_ok" targetRef="marcar" />
+        <bpmn:sequenceFlow id="f_g_ok_falha_env" name="não" sourceRef="g_ok" targetRef="falha_env" />
+        <bpmn:sequenceFlow id="f_marcar_a_fim" name="" sourceRef="marcar" targetRef="a_fim" />
+        <bpmn:sequenceFlow id="f_dup_a_fim2" name="" sourceRef="dup" targetRef="a_fim2" />
+        <bpmn:sequenceFlow id="f_falha_env_a_fim3" name="" sourceRef="falha_env" targetRef="a_fim3" />
+      </bpmn:subProcess>
+      <bpmn:endEvent id="m_fim" name="">
+        <bpmn:incoming>f_ass_m_fim</bpmn:incoming>
+      </bpmn:endEvent>
+      <bpmn:sequenceFlow id="f_m_ini_g_atraso" name="" sourceRef="m_ini" targetRef="g_atraso" />
+      <bpmn:sequenceFlow id="f_g_atraso_retido" name="sim" sourceRef="g_atraso" targetRef="retido" />
+      <bpmn:sequenceFlow id="f_g_atraso_g_regra" name="não" sourceRef="g_atraso" targetRef="g_regra" />
+      <bpmn:sequenceFlow id="f_g_regra_sem_alerta" name="não" sourceRef="g_regra" targetRef="sem_alerta" />
+      <bpmn:sequenceFlow id="f_g_regra_g_tem" name="sim" sourceRef="g_regra" targetRef="g_tem" />
+      <bpmn:sequenceFlow id="f_g_tem_sem_assin" name="não" sourceRef="g_tem" targetRef="sem_assin" />
+      <bpmn:sequenceFlow id="f_g_tem_ass" name="sim" sourceRef="g_tem" targetRef="ass" />
+      <bpmn:sequenceFlow id="f_retido_m_fim1" name="" sourceRef="retido" targetRef="m_fim1" />
+      <bpmn:sequenceFlow id="f_sem_alerta_m_fim2" name="" sourceRef="sem_alerta" targetRef="m_fim2" />
+      <bpmn:sequenceFlow id="f_sem_assin_m_fim3" name="" sourceRef="sem_assin" targetRef="m_fim3" />
+      <bpmn:sequenceFlow id="f_ass_m_fim" name="" sourceRef="ass" targetRef="m_fim" />
+    </bpmn:subProcess>
+    <bpmn:serviceTask id="publicar" name="Publicar alertas.json para o site (MVP)">
+      <bpmn:incoming>f_mun_publicar</bpmn:incoming>
+      <bpmn:outgoing>f_publicar_resumo</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="resumo" name="Gravar resumo da execução (auditoria)">
+      <bpmn:incoming>f_publicar_resumo</bpmn:incoming>
+      <bpmn:outgoing>f_resumo_fim</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="fim" name="Concluído">
+      <bpmn:incoming>f_resumo_fim</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="f_inicio_ler" name="" sourceRef="inicio" targetRef="ler" />
+    <bpmn:sequenceFlow id="f_ler_g_leu" name="" sourceRef="ler" targetRef="g_leu" />
+    <bpmn:sequenceFlow id="f_g_leu_validar" name="sim" sourceRef="g_leu" targetRef="validar" />
+    <bpmn:sequenceFlow id="f_g_leu_erro" name="não" sourceRef="g_leu" targetRef="erro" />
+    <bpmn:sequenceFlow id="f_validar_g_valido" name="" sourceRef="validar" targetRef="g_valido" />
+    <bpmn:sequenceFlow id="f_g_valido_assin" name="sim" sourceRef="g_valido" targetRef="assin" />
+    <bpmn:sequenceFlow id="f_g_valido_erro" name="não" sourceRef="g_valido" targetRef="erro" />
+    <bpmn:sequenceFlow id="f_assin_g_assin" name="" sourceRef="assin" targetRef="g_assin" />
+    <bpmn:sequenceFlow id="f_g_assin_mun" name="sim" sourceRef="g_assin" targetRef="mun" />
+    <bpmn:sequenceFlow id="f_g_assin_erro" name="não" sourceRef="g_assin" targetRef="erro" />
+    <bpmn:sequenceFlow id="f_erro_fim_erro" name="" sourceRef="erro" targetRef="fim_erro" />
+    <bpmn:sequenceFlow id="f_mun_publicar" name="" sourceRef="mun" targetRef="publicar" />
+    <bpmn:sequenceFlow id="f_publicar_resumo" name="" sourceRef="publicar" targetRef="resumo" />
+    <bpmn:sequenceFlow id="f_resumo_fim" name="" sourceRef="resumo" targetRef="fim" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="diagrama">
+    <bpmndi:BPMNPlane id="plano" bpmnElement="alerta_diario">
+      <bpmndi:BPMNShape id="inicio_di" bpmnElement="inicio"><dc:Bounds x="22" y="112" width="36" height="36" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ler_di" bpmnElement="ler"><dc:Bounds x="85" y="90" width="150" height="80" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="g_leu_di" bpmnElement="g_leu" isMarkerVisible="true"><dc:Bounds x="275" y="105" width="50" height="50" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="validar_di" bpmnElement="validar"><dc:Bounds x="345" y="90" width="150" height="80" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="g_valido_di" bpmnElement="g_valido" isMarkerVisible="true"><dc:Bounds x="535" y="105" width="50" height="50" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="assin_di" bpmnElement="assin"><dc:Bounds x="605" y="90" width="150" height="80" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="g_assin_di" bpmnElement="g_assin" isMarkerVisible="true"><dc:Bounds x="795" y="105" width="50" height="50" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="erro_di" bpmnElement="erro"><dc:Bounds x="485" y="270" width="150" height="80" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="fim_erro_di" bpmnElement="fim_erro"><dc:Bounds x="542" y="402" width="36" height="36" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="mun_di" bpmnElement="mun" isExpanded="true"><dc:Bounds x="900" y="0" width="1340" height="535" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="m_ini_di" bpmnElement="m_ini"><dc:Bounds x="922" y="112" width="36" height="36" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="g_atraso_di" bpmnElement="g_atraso" isMarkerVisible="true"><dc:Bounds x="995" y="105" width="50" height="50" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="g_regra_di" bpmnElement="g_regra" isMarkerVisible="true"><dc:Bounds x="1165" y="105" width="50" height="50" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="g_tem_di" bpmnElement="g_tem" isMarkerVisible="true"><dc:Bounds x="1335" y="105" width="50" height="50" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="retido_di" bpmnElement="retido"><dc:Bounds x="945" y="270" width="150" height="80" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="sem_alerta_di" bpmnElement="sem_alerta"><dc:Bounds x="1115" y="270" width="150" height="80" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="sem_assin_di" bpmnElement="sem_assin"><dc:Bounds x="1285" y="270" width="150" height="80" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="m_fim1_di" bpmnElement="m_fim1"><dc:Bounds x="1002" y="402" width="36" height="36" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="m_fim2_di" bpmnElement="m_fim2"><dc:Bounds x="1172" y="402" width="36" height="36" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="m_fim3_di" bpmnElement="m_fim3"><dc:Bounds x="1342" y="402" width="36" height="36" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ass_di" bpmnElement="ass" isExpanded="true"><dc:Bounds x="1445" y="25" width="730" height="470" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="a_ini_di" bpmnElement="a_ini"><dc:Bounds x="1462" y="112" width="36" height="36" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="g_dup_di" bpmnElement="g_dup" isMarkerVisible="true"><dc:Bounds x="1530" y="105" width="50" height="50" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="enviar_di" bpmnElement="enviar"><dc:Bounds x="1620" y="90" width="150" height="80" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="g_ok_di" bpmnElement="g_ok" isMarkerVisible="true"><dc:Bounds x="1820" y="105" width="50" height="50" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="marcar_di" bpmnElement="marcar"><dc:Bounds x="1910" y="90" width="150" height="80" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="a_fim_di" bpmnElement="a_fim"><dc:Bounds x="2107" y="112" width="36" height="36" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="dup_di" bpmnElement="dup"><dc:Bounds x="1480" y="270" width="150" height="80" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="falha_env_di" bpmnElement="falha_env"><dc:Bounds x="1770" y="270" width="150" height="80" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="a_fim2_di" bpmnElement="a_fim2"><dc:Bounds x="1537" y="402" width="36" height="36" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="a_fim3_di" bpmnElement="a_fim3"><dc:Bounds x="1827" y="402" width="36" height="36" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="m_fim_di" bpmnElement="m_fim"><dc:Bounds x="2187" y="112" width="36" height="36" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="publicar_di" bpmnElement="publicar"><dc:Bounds x="2275" y="90" width="150" height="80" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="resumo_di" bpmnElement="resumo"><dc:Bounds x="2455" y="90" width="150" height="80" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="fim_di" bpmnElement="fim"><dc:Bounds x="2632" y="112" width="36" height="36" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="f_inicio_ler_di" bpmnElement="f_inicio_ler"><di:waypoint x="58" y="130" /><di:waypoint x="85" y="130" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_ler_g_leu_di" bpmnElement="f_ler_g_leu"><di:waypoint x="235" y="130" /><di:waypoint x="275" y="130" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_g_leu_validar_di" bpmnElement="f_g_leu_validar"><di:waypoint x="325" y="130" /><di:waypoint x="345" y="130" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_g_leu_erro_di" bpmnElement="f_g_leu_erro"><di:waypoint x="300" y="155" /><di:waypoint x="300" y="310" /><di:waypoint x="485" y="310" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_validar_g_valido_di" bpmnElement="f_validar_g_valido"><di:waypoint x="495" y="130" /><di:waypoint x="535" y="130" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_g_valido_assin_di" bpmnElement="f_g_valido_assin"><di:waypoint x="585" y="130" /><di:waypoint x="605" y="130" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_g_valido_erro_di" bpmnElement="f_g_valido_erro"><di:waypoint x="560" y="155" /><di:waypoint x="560" y="270" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_assin_g_assin_di" bpmnElement="f_assin_g_assin"><di:waypoint x="755" y="130" /><di:waypoint x="795" y="130" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_g_assin_mun_di" bpmnElement="f_g_assin_mun"><di:waypoint x="845" y="130" /><di:waypoint x="900" y="130" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_g_assin_erro_di" bpmnElement="f_g_assin_erro"><di:waypoint x="820" y="155" /><di:waypoint x="820" y="310" /><di:waypoint x="635" y="310" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_erro_fim_erro_di" bpmnElement="f_erro_fim_erro"><di:waypoint x="560" y="350" /><di:waypoint x="560" y="402" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_m_ini_g_atraso_di" bpmnElement="f_m_ini_g_atraso"><di:waypoint x="958" y="130" /><di:waypoint x="995" y="130" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_g_atraso_retido_di" bpmnElement="f_g_atraso_retido"><di:waypoint x="1020" y="155" /><di:waypoint x="1020" y="270" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_g_atraso_g_regra_di" bpmnElement="f_g_atraso_g_regra"><di:waypoint x="1045" y="130" /><di:waypoint x="1165" y="130" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_g_regra_sem_alerta_di" bpmnElement="f_g_regra_sem_alerta"><di:waypoint x="1190" y="155" /><di:waypoint x="1190" y="270" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_g_regra_g_tem_di" bpmnElement="f_g_regra_g_tem"><di:waypoint x="1215" y="130" /><di:waypoint x="1335" y="130" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_g_tem_sem_assin_di" bpmnElement="f_g_tem_sem_assin"><di:waypoint x="1360" y="155" /><di:waypoint x="1360" y="270" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_g_tem_ass_di" bpmnElement="f_g_tem_ass"><di:waypoint x="1385" y="130" /><di:waypoint x="1445" y="130" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_retido_m_fim1_di" bpmnElement="f_retido_m_fim1"><di:waypoint x="1020" y="350" /><di:waypoint x="1020" y="402" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_sem_alerta_m_fim2_di" bpmnElement="f_sem_alerta_m_fim2"><di:waypoint x="1190" y="350" /><di:waypoint x="1190" y="402" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_sem_assin_m_fim3_di" bpmnElement="f_sem_assin_m_fim3"><di:waypoint x="1360" y="350" /><di:waypoint x="1360" y="402" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_ass_m_fim_di" bpmnElement="f_ass_m_fim"><di:waypoint x="2175" y="130" /><di:waypoint x="2187" y="130" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_a_ini_g_dup_di" bpmnElement="f_a_ini_g_dup"><di:waypoint x="1498" y="130" /><di:waypoint x="1530" y="130" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_g_dup_dup_di" bpmnElement="f_g_dup_dup"><di:waypoint x="1555" y="155" /><di:waypoint x="1555" y="270" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_g_dup_enviar_di" bpmnElement="f_g_dup_enviar"><di:waypoint x="1580" y="130" /><di:waypoint x="1620" y="130" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_enviar_g_ok_di" bpmnElement="f_enviar_g_ok"><di:waypoint x="1770" y="130" /><di:waypoint x="1820" y="130" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_g_ok_marcar_di" bpmnElement="f_g_ok_marcar"><di:waypoint x="1870" y="130" /><di:waypoint x="1910" y="130" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_g_ok_falha_env_di" bpmnElement="f_g_ok_falha_env"><di:waypoint x="1845" y="155" /><di:waypoint x="1845" y="270" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_marcar_a_fim_di" bpmnElement="f_marcar_a_fim"><di:waypoint x="2060" y="130" /><di:waypoint x="2107" y="130" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_dup_a_fim2_di" bpmnElement="f_dup_a_fim2"><di:waypoint x="1555" y="350" /><di:waypoint x="1555" y="402" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_falha_env_a_fim3_di" bpmnElement="f_falha_env_a_fim3"><di:waypoint x="1845" y="350" /><di:waypoint x="1845" y="402" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_mun_publicar_di" bpmnElement="f_mun_publicar"><di:waypoint x="2240" y="130" /><di:waypoint x="2275" y="130" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_publicar_resumo_di" bpmnElement="f_publicar_resumo"><di:waypoint x="2425" y="130" /><di:waypoint x="2455" y="130" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_resumo_fim_di" bpmnElement="f_resumo_fim"><di:waypoint x="2605" y="130" /><di:waypoint x="2632" y="130" /></bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

@@ -2,6 +2,7 @@ import { useId, type ReactNode } from 'react'
 import type { NivelRisco, RiscoMunicipio } from '../data/risco'
 import { AvisoLegal } from '../components/AvisoLegal'
 import { AvisoData } from '../components/AvisoData'
+import { AlertaEnviado } from '../components/AlertaEnviado'
 import { AvisoOffline } from '../components/AvisoOffline'
 import { Medidor } from '../components/Medidor'
 import { BarrasNivel } from '../components/SeloNivel'
@@ -139,6 +140,8 @@ export function Inicio({ lista, offline, selecionadoId, onSelecionar }: Props) {
           <IconeRelogio width={18} height={18} />
           Atualizado em {fmtDataHora(m.atualizado_em)}
         </p>
+
+        <AlertaEnviado idIbge={m.id_ibge} data={m.data} />
       </article>
 
       <AvisoLegal />

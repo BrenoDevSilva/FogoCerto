@@ -45,3 +45,10 @@ Thumbs.db
 
 # Prints do relatorio (podem mostrar e-mail/conta pessoal)
 bigdata/Imagens/
+
+# RPA: contatos reais, estado e logs de execucao ficam so na maquina (LGPD)
+rpa/config/assinantes*.json
+!rpa/config/assinantes.example.json
+rpa/estado/
+rpa/logs/execucao/
+rpa/docs/_figuras_relatorio/

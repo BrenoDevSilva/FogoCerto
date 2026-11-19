@@ -1,0 +1,12 @@
+{
+  "cpu": {
+    "ms_por_imagem": 76.2,
+    "fps": 13.1
+  },
+  "gpu": {
+    "ms_por_imagem": 15.6,
+    "fps": 64.2,
+    "placa": "Tesla T4"
+  },
+  "obs": "inclui leitura da imagem, pr\u00e9 e p\u00f3s-processamento; tam_img=640"
+}

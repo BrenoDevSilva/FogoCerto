@@ -1,0 +1,25 @@
+{
+  "classes": [
+    "fogo",
+    "fumaca",
+    "nada"
+  ],
+  "linhas_real_colunas_previsto": [
+    [
+      1062,
+      41,
+      12
+    ],
+    [
+      47,
+      1052,
+      87
+    ],
+    [
+      16,
+      84,
+      1905
+    ]
+  ],
+  "limiar": 0.15
+}

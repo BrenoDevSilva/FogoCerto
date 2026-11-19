@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FogoCerto · Checar foto</title>
+<style>
+  :root {
+    --fundo: #f6f4f1; --cartao: #ffffff; --texto: #1d1b19; --suave: #5e5850; --borda: #ddd6cc;
+    --acento: #b4441c; --fogo: #c0321a; --fumaca: #5b6470; --nada: #2f6b3c; --duvida: #8a6a00;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --fundo: #161412; --cartao: #211e1b; --texto: #f1ece6; --suave: #b5aca1; --borda: #3a352f;
+      --acento: #f07a4a; --fogo: #ff6a4d; --fumaca: #a9b3bf; --nada: #6cc483; --duvida: #e4c04f;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--fundo); color: var(--texto);
+         font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 720px; margin: 0 auto; padding: 24px 16px 48px; }
+  h1 { font-size: 1.5rem; margin: 0 0 4px; }
+  .sub { color: var(--suave); margin: 0 0 24px; }
+  .cartao { background: var(--cartao); border: 1px solid var(--borda); border-radius: 12px; padding: 16px; margin-bottom: 16px; }
+  label { display: block; font-weight: 600; margin-bottom: 6px; }
+  select, input[type=file] { width: 100%; font: inherit; padding: 10px; border: 1px solid var(--borda);
+         border-radius: 8px; background: var(--fundo); color: var(--texto); }
+  .campo { margin-bottom: 16px; }
+  button { font: inherit; font-weight: 600; padding: 12px 20px; border: 0; border-radius: 8px;
+           background: var(--acento); color: #fff; cursor: pointer; width: 100%; }
+  button:disabled { opacity: .6; cursor: progress; }
+  button:focus-visible, select:focus-visible, input:focus-visible { outline: 3px solid var(--acento); outline-offset: 2px; }
+  canvas { width: 100%; height: auto; border-radius: 8px; display: block; }
+  .selo { display: inline-block; font-weight: 700; padding: 4px 10px; border-radius: 999px; color: #fff; }
+  .selo.fogo { background: var(--fogo); } .selo.fumaca { background: var(--fumaca); }
+  .selo.nada { background: var(--nada); } .selo.duvida { background: var(--duvida); }
+  .linha { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 8px; }
+  .aviso { color: var(--suave); font-size: .9rem; margin-top: 12px; }
+  .erro { color: var(--fogo); font-weight: 600; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Checar foto de fumaça ou fogo</h1>
+  <p class="sub">O modelo de visão do FogoCerto analisa a imagem e diz se vê fumaça ou fogo. A foto não é guardada.</p>
+
+  <form id="form" class="cartao">
+    <div class="campo">
+      <label for="municipio">Município (opcional)</label>
+      <select id="municipio" name="municipio_id"><option value="">Não informar</option></select>
+    </div>
+    <div class="campo">
+      <label for="imagem">Foto</label>
+      <input id="imagem" name="imagem" type="file" accept="image/jpeg,image/png,image/webp" required>
+    </div>
+    <button id="enviar" type="submit">Analisar foto</button>
+  </form>
+
+  <section id="resultado" class="cartao" hidden aria-live="polite">
+    <div class="linha">
+      <span id="selo" class="selo"></span>
+      <span id="conf"></span>
+      <span id="prio"></span>
+    </div>
+    <p id="msg"></p>
+    <canvas id="tela"></canvas>
+    <p class="aviso" id="aviso"></p>
+  </section>
+  <p id="erro" class="erro" role="alert" hidden></p>
+</main>
+<script>
+  const ROTULO = { fogo: "Fogo", fumaca: "Fumaça", nada: "Nada encontrado" };
+  const COR = { fogo: "#e0391c", fumaca: "#00aaff" };
+  const $ = (id) => document.getElementById(id);
+
+  fetch("/municipios").then((r) => r.ok ? r.json() : []).then((lista) => {
+    for (const m of lista) {
+      const op = document.createElement("option");
+      op.value = m.id_ibge;
+      op.textContent = `${m.nome} (risco ${m.nivel_risco ?? "?"})`;
+      $("municipio").append(op);
+    }
+  }).catch(() => {});
+
+  function desenhar(arquivo, deteccoes) {
+    const img = new Image();
+    img.onload = () => {
+      const tela = $("tela"), ctx = tela.getContext("2d");
+      tela.width = img.naturalWidth; tela.height = img.naturalHeight;
+      ctx.drawImage(img, 0, 0);
+      const esp = Math.max(2, img.naturalWidth / 250);
+      ctx.lineWidth = esp; ctx.font = `bold ${esp * 7}px system-ui`;
+      // Da mais confiante para a menos; a legenda só é escrita se não cobrir outra já escrita.
+      // Primeiro todas as caixas, depois as legendas, para nenhuma linha passar por cima do texto.
+      const ordem = [...deteccoes].sort((a, b) => b.confianca - a.confianca);
+      for (const d of ordem) {
+        const [x1, y1, x2, y2] = d.caixa;
+        ctx.strokeStyle = COR[d.classe];
+        ctx.strokeRect(x1, y1, x2 - x1, y2 - y1);
+      }
+      const legendas = [];
+      for (const d of ordem) {
+        const [x1, y1] = d.caixa;
+        const texto = `${ROTULO[d.classe]} ${Math.round(d.confianca * 100)}%`;
+        const lx = x1 + esp, ly = Math.max(y1 - esp * 2, esp * 7);
+        const r = { x: lx, y: ly - esp * 7, w: ctx.measureText(texto).width, h: esp * 8 };
+        const cobre = legendas.some((o) => r.x < o.x + o.w && o.x < r.x + r.w && r.y < o.y + o.h && o.y < r.y + r.h);
+        if (!cobre) {
+          ctx.fillStyle = "rgba(0, 0, 0, 0.65)";
+          ctx.fillRect(r.x - esp, r.y, r.w + esp * 2, r.h);
+          ctx.fillStyle = COR[d.classe];
+          ctx.fillText(texto, lx, ly);
+          legendas.push(r);
+        }
+      }
+      URL.revokeObjectURL(img.src);
+    };
+    img.src = URL.createObjectURL(arquivo);
+  }
+
+  $("form").addEventListener("submit", async (ev) => {
+    ev.preventDefault();
+    const arquivo = $("imagem").files[0];
+    if (!arquivo) return;
+    $("erro").hidden = true; $("enviar").disabled = true; $("enviar").textContent = "Analisando…";
+    const dados = new FormData();
+    dados.append("imagem", arquivo);
+    if ($("municipio").value) dados.append("municipio_id", $("municipio").value);
+    try {
+      const r = await fetch("/visao/classificar", { method: "POST", body: dados });
+      const j = await r.json();
+      if (!r.ok) throw new Error(j.detail || `Erro ${r.status}`);
+      const selo = $("selo");
+      selo.className = "selo " + (j.duvida ? "duvida" : j.classe);
+      selo.textContent = j.duvida ? `Dúvida (${ROTULO[j.classe]}?)` : ROTULO[j.classe];
+      $("conf").textContent = j.classe === "nada" && !j.duvida ? "" : `confiança ${Math.round(j.confianca * 100)}%`;
+      $("prio").textContent = j.prioridade ? `· prioridade ${j.prioridade} (risco do município: ${j.risco_municipio ?? "sem dado"})` : "";
+      $("msg").textContent = j.mensagem;
+      $("aviso").textContent = j.aviso;
+      $("resultado").hidden = false;
+      desenhar(arquivo, j.deteccoes);
+    } catch (e) {
+      $("erro").textContent = e.message; $("erro").hidden = false;
+    } finally {
+      $("enviar").disabled = false; $("enviar").textContent = "Analisar foto";
+    }
+  });
+</script>
+</body>
+</html>

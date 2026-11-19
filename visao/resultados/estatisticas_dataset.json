@@ -1,0 +1,29 @@
+{
+  "train": {
+    "imagens": 14122,
+    "nenhum": 6458,
+    "so_fogo": 770,
+    "so_fumaca": 3836,
+    "fogo_e_fumaca": 3058,
+    "caixas_fogo": 9638,
+    "caixas_fumaca": 7794
+  },
+  "val": {
+    "imagens": 3099,
+    "nenhum": 1375,
+    "so_fumaca": 845,
+    "fogo_e_fumaca": 705,
+    "so_fogo": 174,
+    "caixas_fumaca": 1756,
+    "caixas_fogo": 2176
+  },
+  "test": {
+    "imagens": 4306,
+    "nenhum": 2005,
+    "so_fumaca": 1186,
+    "fogo_e_fumaca": 895,
+    "so_fogo": 220,
+    "caixas_fumaca": 2315,
+    "caixas_fogo": 2878
+  }
+}

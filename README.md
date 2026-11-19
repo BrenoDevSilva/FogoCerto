@@ -19,8 +19,8 @@ FogoCerto avisa, a cada manhã, produtores rurais e a defesa civil se há risco 
 - MVP (site publicado): [fogocerto.vercel.app](fogocerto.vercel.app)
 - Vídeo pitch (YouTube, não listado): [Global Solution FIAP 2026/2 - FogoCerto - 4ESPW](https://youtu.be/lKqDmocMIbw)
 - Vídeo Maker Lab: [Assistir ao vídeo do carrinho](maker/evidencias/video-carrinho.mp4)
-- Vídeo RPA: _a definir_
-- Vídeo Visão Computacional: _a definir_
+- Vídeo RPA: [Robotic Process Automation - alerta diário de risco](https://youtu.be/4NxAmXulvdA)
+- Vídeo Visão Computacional: [Detecção de fumaça e fogo com YOLO11](https://youtu.be/IZauw6l9Onw)
 - Vídeo IA: _a definir_
 
 ## Como o projeto está organizado

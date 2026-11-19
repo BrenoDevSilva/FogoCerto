@@ -3,6 +3,8 @@ bigdata/chegada/
 **/_cache_mensal/
 *.csv
 !bigdata/amostras/*.csv
+# Tabelas pequenas de resultado da visao (sem dados pessoais) vao para o GitHub
+!visao/resultados/*.csv
 
 # Segredos e configuracao local
 .env
@@ -39,9 +41,15 @@ Thumbs.db
 
 # Modelos e midia grandes
 *.pt
+# Peso final da visao: pequeno (5,5 MB) e necessario para rodar a API e o video
+!visao/modelos/best.pt
 *.onnx
 *.safetensors
 *.mp4
+
+# Visao: saidas locais do notebook e imagens proprias (LGPD)
+visao/saida_visao/
+visao/imagens_proprias/
 
 # Prints do relatorio (podem mostrar e-mail/conta pessoal)
 bigdata/Imagens/
